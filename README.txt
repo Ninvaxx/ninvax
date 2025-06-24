@@ -1,7 +1,12 @@
 Phantom by HTML5 UP
 html5up.net | @ajlkn
 Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-
+Using this template
+-------------------
+1. Clone or download the repository.
+2. Edit `index.html`, `generic.html` and `elements.html` to replace the placeholder text with your own content.
+3. Place your images in the `images` folder and update the paths in the HTML files.
+4. Commit your changes and push to GitHub. The included workflow deploys to GitHub Pages.
 
 This is Phantom, a simple design built around a grid of large, colorful, semi-interactive
 image tiles (of which you can have as many or as few as you like). Makes use of some
