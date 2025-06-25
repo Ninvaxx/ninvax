@@ -9,10 +9,12 @@ Using this template
 4. Commit your changes and push to GitHub. The included workflow deploys to GitHub Pages.
 Contact Form Setup
 -------------------
-This site uses a [Formspree](https://formspree.io) endpoint to handle contact form submissions.
-Sign up for Formspree, create a form, and replace `https://formspree.io/f/your-form-id` in the HTML files with your endpoint.
+A small Node.js server handles contact form submissions.
+1. Run `npm install` to install dependencies.
+2. Set environment variables `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `CONTACT_EMAIL`.
+3. Start the server with `npm start`.
 
-
+Forms in the HTML files post to `/contact` on this server.
 This is Phantom, a simple design built around a grid of large, colorful, semi-interactive
 image tiles (of which you can have as many or as few as you like). Makes use of some
 SVG and animation techniques I've been experimenting with on that other project of mine
