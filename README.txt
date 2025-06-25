@@ -9,8 +9,9 @@ Using this template
 4. Commit your changes and push to GitHub. The included workflow deploys to GitHub Pages.
 Contact Form Setup
 -------------------
-This site uses a [Formspree](https://formspree.io) endpoint to handle contact form submissions.
-Sign up for Formspree, create a form, and replace `https://formspree.io/f/your-form-id` in the HTML files with your endpoint.
+These pages use a simple `mailto:` form action so submissions open your visitor's default mail client.
+Replace `mailto:you@example.com` in the HTML files with your own email address.
+Note that this approach depends on the visitor having a local mail client configured.
 
 
 This is Phantom, a simple design built around a grid of large, colorful, semi-interactive
