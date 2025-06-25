@@ -7,6 +7,11 @@ Using this template
 2. Edit `index.html`, `generic.html` and `elements.html` to replace the placeholder text with your own content.
 3. Place your images in the `images` folder and update the paths in the HTML files.
 4. Commit your changes and push to GitHub. The included workflow deploys to GitHub Pages.
+Contact Form Setup
+-------------------
+This site uses a [Formspree](https://formspree.io) endpoint to handle contact form submissions.
+Sign up for Formspree, create a form, and replace `https://formspree.io/f/your-form-id` in the HTML files with your endpoint.
+
 
 This is Phantom, a simple design built around a grid of large, colorful, semi-interactive
 image tiles (of which you can have as many or as few as you like). Makes use of some
