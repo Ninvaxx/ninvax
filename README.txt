@@ -1,4 +1,8 @@
 Phantom by HTML5 UP
+Modernization
+-------------
+This repository now contains a Next.js frontend (`frontend/`) and a Node backend (`backend/`) skeleton for future development. The original static site files remain for reference.
+
 html5up.net | @ajlkn
 Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 Using this template
