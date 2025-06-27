@@ -8,7 +8,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 Using this template
 -------------------
 1. Clone or download the repository.
-2. Edit `index.html`, `projects.html`, `socials.html`, `gallery.html` and `contact.html` to replace the placeholder text with your own content.
+2. Edit `index.html`, `projects.html`, `blog.html`, `socials.html`, `gallery.html` and `contact.html` to replace the placeholder text with your own content.
 3. Place your images in the `images` folder and update the paths in the HTML files.
 4. Commit your changes and push to GitHub. The included workflow deploys to GitHub Pages.
 Contact Form Setup
