@@ -1,9 +1,9 @@
 {
   "name": "ninvax-site",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "assets/js/server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node assets/js/server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
