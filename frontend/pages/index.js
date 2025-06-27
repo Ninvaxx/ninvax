@@ -8,6 +8,7 @@ export default function Home() {
       <Head>
         <title>Ninvax</title>
         <meta name="description" content="Ninvax modern site" />
+        <link rel="icon" href="/logo.svg" />
       </Head>
       <Navbar />
       <main style={{ padding: '2rem', textAlign: 'center' }}>
