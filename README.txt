@@ -1,22 +1,22 @@
 Phantom by HTML5 UP
 Modernization
 -------------
-This repository now contains a Next.js frontend (`frontend/`) and a Node backend (`backend/`) skeleton for future development. The original static site files remain for reference.
+This repository now contains a Next.js frontend (`frontend/`) and a Node backend (`backend/`) skeleton for future development. The original static site files now live in the `site/` directory.
 
 html5up.net | @ajlkn
 Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 Using this template
 -------------------
 1. Clone or download the repository.
-2. Edit `index.html`, `projects.html`, `blog.html`, `socials.html`, `gallery.html` and `contact.html` to replace the placeholder text with your own content.
-3. Place your images in the `images` folder and update the paths in the HTML files.
-4. Commit your changes and push to GitHub. The included workflow deploys to GitHub Pages.
+2. Edit `site/index.html`, `site/projects.html`, `site/blog.html`, `site/gallery.html` and the files under `site/projects/` to replace the placeholder text with your own content.
+3. Place your images in `site/images/` and update the paths in the HTML files.
+4. Commit your changes and push to GitHub. The included workflow deploys the contents of `site/` to GitHub Pages.
 Contact Form Setup
 -------------------
 A small Node.js server handles contact form submissions.
-1. Run `npm install` to install dependencies.
+1. Run `npm install` inside the `site/` directory to install dependencies.
 2. Set environment variables `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `CONTACT_EMAIL`.
-3. Start the server with `npm start`.
+3. Start the server from within `site/` using `npm start`.
 
 Forms in the HTML files post to `/contact` on this server.
 This is Phantom, a simple design built around a grid of large, colorful, semi-interactive
