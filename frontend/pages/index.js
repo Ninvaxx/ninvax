@@ -40,9 +40,7 @@ export default function Home() {
       <main style={{ padding: '2rem' }}>
         <h1 style={{ textAlign: 'center' }}>Welcome to Ninvax</h1>
         <p style={{ textAlign: 'center' }}>
-          Cybersecurity specialist, nuclear Navy veteran and data analyst. I build
-          and break systems to protect what matters and design tools for minds like
-          mine.
+          I explore the edges of systems—testing, shaping, and rebuilding them to make things work better for minds that don’t fit the mold. I think in patterns, adapt fast, and create tools that make complexity easier to navigate.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
           {projects.map((proj) => (
