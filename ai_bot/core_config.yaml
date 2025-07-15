@@ -1,0 +1,6 @@
+# Global settings for the AI bot
+start_url: "https://example.com"
+goals:
+  - Collect data from the web
+  - Plan actions based on the data
+  - Generate or modify code
