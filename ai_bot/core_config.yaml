@@ -7,3 +7,4 @@ goals:
 testing_enabled: true
 log_thoughts: true
 auto_evaluate: false
+enable_recursive_planning: false
