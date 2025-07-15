@@ -1,7 +1,21 @@
 {
   "nodes": [
-    { "id": "start", "type": "start", "next": "add" },
-    { "id": "add", "type": "math:add", "inputs": [3, 5], "next": "print" },
-    { "id": "print", "type": "print" }
+    { "id": "start", "type": "start", "next": "num1" },
+    { "id": "num1", "type": "value", "value": 3, "next": "num2" },
+    { "id": "num2", "type": "value", "value": 5, "next": "add" },
+    {
+      "id": "add",
+      "type": "math:add",
+      "inputs": {
+        "a": { "from": "num1" },
+        "b": { "from": "num2" }
+      },
+      "next": "print"
+    },
+    {
+      "id": "print",
+      "type": "print",
+      "inputs": { "value": { "from": "add" } }
+    }
   ]
 }
