@@ -1,0 +1,21 @@
+{
+  "nodes": [
+    { "id": "start", "type": "start", "next": "val" },
+    { "id": "val", "type": "value", "value": 1, "next": "loop" },
+    {
+      "id": "loop",
+      "type": "loop",
+      "count": 5,
+      "next_body": "print",
+      "next_exit": "end"
+    },
+    {
+      "id": "print",
+      "type": "print",
+      "inputs": { "value": { "from": "val" } },
+      "next": "delay"
+    },
+    { "id": "delay", "type": "delay", "ticks": 1, "next": "loop" },
+    { "id": "end", "type": "value", "value": 0 }
+  ]
+}
