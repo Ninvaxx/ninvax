@@ -33,7 +33,7 @@ enum InputSpec {
 
 impl Graph {
     fn from_file(path: &str) -> serde_json::Result<Self> {
-        let data = fs::read_to_string(path)?;
+        let data = fs::read_to_string(path).map_err(|e| serde_json::Error::io(e))?;
         serde_json::from_str(&data)
     }
 
