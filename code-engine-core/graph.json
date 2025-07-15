@@ -1,0 +1,7 @@
+{
+  "nodes": [
+    { "id": "start", "type": "start", "next": "add" },
+    { "id": "add", "type": "math:add", "inputs": [3, 5], "next": "print" },
+    { "id": "print", "type": "print" }
+  ]
+}
