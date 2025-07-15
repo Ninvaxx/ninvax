@@ -17,6 +17,10 @@ struct Node {
     #[serde(default)]
     inputs: HashMap<String, InputSpec>,
     next: Option<String>,
+    #[serde(default)]
+    next_then: Option<String>,
+    #[serde(default)]
+    next_else: Option<String>,
     value: Option<Value>,
 }
 
@@ -50,6 +54,10 @@ impl GraphContext {
 
     fn get(&self, key: &str) -> Option<&Value> {
         self.values.get(key)
+    }
+
+    fn get_bool(&self, key: &str) -> Option<bool> {
+        self.get(key).and_then(|v| v.as_bool())
     }
 }
 
@@ -103,6 +111,17 @@ fn run_graph(graph: &Graph) {
                     .as_deref()
                     .and_then(|n| map.get(n))
                     .copied();
+            }
+            "if" => {
+                let cond = node.inputs.get("condition").and_then(|s| resolve_input(s, &ctx));
+                let cond = cond.and_then(|v| v.as_bool()).unwrap_or(false);
+                ctx.set(&node.id, Value::Bool(cond));
+                let next_id = if cond {
+                    node.next_then.as_deref()
+                } else {
+                    node.next_else.as_deref()
+                };
+                current = next_id.and_then(|n| map.get(n)).copied();
             }
             "print" => {
                 if let Some(spec) = node.inputs.get("value") {

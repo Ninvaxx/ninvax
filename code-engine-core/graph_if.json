@@ -1,0 +1,16 @@
+{
+  "nodes": [
+    { "id": "start", "type": "start", "next": "val_true" },
+    { "id": "val_true", "type": "value", "value": true, "next": "val_false" },
+    { "id": "val_false", "type": "value", "value": false, "next": "branch" },
+    {
+      "id": "branch",
+      "type": "if",
+      "inputs": { "condition": { "from": "val_true" } },
+      "next_then": "print_true",
+      "next_else": "print_false"
+    },
+    { "id": "print_true", "type": "print", "inputs": { "value": { "from": "val_true" } } },
+    { "id": "print_false", "type": "print", "inputs": { "value": { "from": "val_false" } } }
+  ]
+}
