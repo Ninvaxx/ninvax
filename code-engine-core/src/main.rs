@@ -1,5 +1,8 @@
 use std::collections::HashMap;
 use std::fs;
+use std::io::{self, Write};
+
+use clap::Parser;
 
 use serde::Deserialize;
 use serde_json::Value;
@@ -72,9 +75,8 @@ fn resolve_input(spec: &InputSpec, ctx: &GraphContext) -> Option<Value> {
     }
 }
 
-fn run_graph(graph: &Graph) {
+fn run_graph(graph: &Graph, ctx: &mut GraphContext) {
     let map = graph.node_map();
-    let mut ctx = GraphContext::default();
     let mut current = graph
         .nodes
         .iter()
@@ -178,8 +180,117 @@ fn run_graph(graph: &Graph) {
     }
 }
 
+fn inspect(graph: &Option<Graph>, ctx: &GraphContext) {
+    match graph {
+        Some(g) => {
+            println!("Graph nodes:");
+            for n in &g.nodes {
+                if let Some(v) = ctx.get(&n.id) {
+                    println!("- {} ({}) => {}", n.id, n.node_type, v);
+                } else {
+                    println!("- {} ({})", n.id, n.node_type);
+                }
+            }
+        }
+        None => println!("No graph loaded"),
+    }
+}
+
+fn repl() {
+    let mut graph: Option<Graph> = None;
+    let mut ctx = GraphContext::default();
+    let stdin = io::stdin();
+    loop {
+        print!("repl> ");
+        let _ = io::stdout().flush();
+        let mut line = String::new();
+        if stdin.read_line(&mut line).is_err() {
+            println!("Error reading input");
+            continue;
+        }
+        let trimmed = line.trim();
+        if trimmed.is_empty() {
+            continue;
+        }
+        let mut parts = trimmed.split_whitespace();
+        let cmd = parts.next().unwrap_or("");
+        match cmd {
+            "load" => {
+                if let Some(path) = parts.next() {
+                    match Graph::from_file(path) {
+                        Ok(g) => {
+                            graph = Some(g);
+                            ctx = GraphContext::default();
+                            println!("Loaded {}", path);
+                        }
+                        Err(e) => println!("Error loading graph: {}", e),
+                    }
+                } else {
+                    println!("Usage: load <file>");
+                }
+            }
+            "run" => {
+                if let Some(ref g) = graph {
+                    run_graph(g, &mut ctx);
+                } else {
+                    println!("No graph loaded");
+                }
+            }
+            "inspect" => {
+                inspect(&graph, &ctx);
+            }
+            "set" => {
+                let key = parts.next();
+                let value_str = parts.collect::<Vec<_>>().join(" ");
+                if let (Some(k), true) = (key, !value_str.is_empty()) {
+                    match serde_json::from_str(&value_str) {
+                        Ok(v) => {
+                            ctx.set(k, v);
+                            println!("Set {}", k);
+                        }
+                        Err(e) => println!("Failed to parse value: {}", e),
+                    }
+                } else {
+                    println!("Usage: set <key> <json value>");
+                }
+            }
+            "save" => {
+                if let Some(path) = parts.next() {
+                    match fs::write(path, serde_json::to_string_pretty(&ctx.values).unwrap_or_default()) {
+                        Ok(_) => println!("Context saved to {}", path),
+                        Err(e) => println!("Failed to save: {}", e),
+                    }
+                } else {
+                    println!("Usage: save <file>");
+                }
+            }
+            "exit" | "quit" => break,
+            "help" => {
+                println!("Commands: load <file>, run, inspect, set <key> <value>, save <file>, quit");
+            }
+            _ => println!("Unknown command"),
+        }
+    }
+}
+
+#[derive(Parser)]
+struct Cli {
+    /// Run in interactive REPL mode
+    #[arg(long)]
+    repl: bool,
+    /// Graph json file to execute when not in REPL mode
+    #[arg(default_value = "graph.json")]
+    file: String,
+}
+
 fn main() {
-    let graph = Graph::from_file("graph.json").expect("failed to parse graph");
-    run_graph(&graph);
+    let cli = Cli::parse();
+    if cli.repl {
+        repl();
+    } else {
+        let graph = Graph::from_file(&cli.file).expect("failed to parse graph");
+        let mut ctx = GraphContext::default();
+        run_graph(&graph, &mut ctx);
+    }
 }
 
