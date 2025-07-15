@@ -3,6 +3,7 @@ use std::fs;
 
 use serde::Deserialize;
 use serde_json::Value;
+use mlua::{Lua, LuaSerdeExt, Value as LuaValue};
 
 #[derive(Deserialize, Debug)]
 struct Graph {
@@ -16,6 +17,9 @@ struct Node {
     node_type: String,
     #[serde(default)]
     inputs: HashMap<String, InputSpec>,
+    #[serde(default)]
+    variables: HashMap<String, InputSpec>,
+    code: Option<String>,
     next: Option<String>,
     #[serde(default)]
     next_then: Option<String>,
@@ -133,6 +137,33 @@ fn run_graph(graph: &Graph) {
                 } else {
                     println!("Print node with no input");
                 }
+                current = node
+                    .next
+                    .as_deref()
+                    .and_then(|n| map.get(n))
+                    .copied();
+            }
+            "script:lua" => {
+                let code = node.code.as_deref().unwrap_or("");
+                let lua = Lua::new();
+                {
+                    let globals = lua.globals();
+                    for (name, spec) in &node.variables {
+                        if let Some(val) = resolve_input(spec, &ctx) {
+                            if let Ok(lua_val) = lua.to_value(&val) {
+                                let _ = globals.set(name.as_str(), lua_val);
+                            }
+                        }
+                    }
+                }
+                let result = lua
+                    .load(code)
+                    .eval::<LuaValue>()
+                    .unwrap_or(LuaValue::Nil);
+                let json_val: Value = lua
+                    .from_value(result)
+                    .unwrap_or(Value::Null);
+                ctx.set(&node.id, json_val);
                 current = node
                     .next
                     .as_deref()
