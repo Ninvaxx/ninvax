@@ -4,3 +4,6 @@ goals:
   - Collect data from the web
   - Plan actions based on the data
   - Generate or modify code
+testing_enabled: true
+log_thoughts: true
+auto_evaluate: false

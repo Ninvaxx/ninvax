@@ -2,6 +2,11 @@
 
 from typing import Any
 
+
+def _is_testable(content: str) -> bool:
+    """Very small heuristic to determine if code has testable functions."""
+    return "def " in content
+
 def plan(data: str) -> Any:
     """Simulate planning based on scraped data.
 
@@ -13,4 +18,10 @@ def plan(data: str) -> Any:
     """
     print("Planning next steps ...")
     # In a real implementation this would contain actual planning logic.
-    return {"action": "write_code", "content": data.upper()}
+    content = data.upper()
+    return {
+        "action": "write_code",
+        "content": content,
+        "testable": _is_testable(content),
+    }
+
