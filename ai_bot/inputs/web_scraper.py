@@ -1,5 +1,8 @@
 """Web scraping utilities for the AI bot."""
 
+from datetime import datetime
+from brain.embeddings.vector_store import get_vector_store
+
 def scrape_site(url: str) -> str:
     """Placeholder function to scrape data from a website.
 
@@ -11,4 +14,14 @@ def scrape_site(url: str) -> str:
     """
     # In a real implementation, this would fetch the page contents.
     print(f"Scraping {url} ...")
-    return f"<html><body>Dummy content from {url}</body></html>"
+    content = f"<html><body>Dummy content from {url}</body></html>"
+    store = get_vector_store()
+    store.add(
+        content,
+        {
+            "source": url,
+            "timestamp": datetime.utcnow().isoformat(),
+            "type": "web",
+        },
+    )
+    return content

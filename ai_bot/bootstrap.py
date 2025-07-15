@@ -25,11 +25,12 @@ def main() -> None:
     testing_enabled = config.get("testing_enabled", True)
     log_thoughts = config.get("log_thoughts", False)
     auto_evaluate = config.get("auto_evaluate", False)
+    enable_recursive_planning = config.get("enable_recursive_planning", False)
     url = config.get("start_url", "https://example.com")
     data = scrape_site(url)
     if log_thoughts:
         log_thought(f"Scraped data from {url}\n\n{data}", tag="scrape")
-    action_plan = plan(data)
+    action_plan = plan(data, config={"enable_recursive_planning": enable_recursive_planning})
     if log_thoughts:
         log_thought(str(action_plan), tag="plan")
 
