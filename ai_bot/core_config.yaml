@@ -10,10 +10,19 @@ auto_evaluate: false
 enable_recursive_planning: false
 allow_self_rewrites: false
 plugins:
+  polling_seconds: 3600
   enabled:
     - github_issues
     - rss_reader
   github_issues:
     repo: "octocat/Hello-World"
+    poll_interval: 1800
+    enabled: true
   rss_reader:
     url: "https://hnrss.org/frontpage"
+    poll_interval: 3600
+    enabled: true
+speaker:
+  enabled: false
+visualizer:
+  enabled: false
