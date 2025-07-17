@@ -15,6 +15,9 @@ from tools.code_reviewer import review_update
 from inputs.web_scraper import scrape_site
 from brain.planner import plan
 from brain.plugin_manager import PluginManager
+from brain.scheduler import Scheduler
+from tools.speaker import speak
+from tools.logic_visualizer import visualize
 from tools.code_writer import write_file
 from tools.evaluate import evaluate_thoughts
 
@@ -30,6 +33,9 @@ def load_config() -> dict:
 def main() -> None:
     config = load_config()
     plugin_mgr = PluginManager(config)
+    scheduler = Scheduler(plugin_mgr.get_schedule())
+    speaker_conf = config.get("speaker", {})
+    visual_conf = config.get("visualizer", {})
     testing_enabled = config.get("testing_enabled", True)
     log_thoughts = config.get("log_thoughts", False)
     auto_evaluate = config.get("auto_evaluate", False)
@@ -42,9 +48,13 @@ def main() -> None:
     action_plan = plan(data, config={"enable_recursive_planning": enable_recursive_planning})
     if log_thoughts:
         log_thought(str(action_plan), tag="plan")
+    if visual_conf.get("enabled"):
+        visualize(action_plan, Path(__file__).with_name("visuals"))
+    if speaker_conf.get("enabled"):
+        speak(action_plan.get("content", ""), speaker_conf)
 
-    plugin_results = plugin_mgr.check_all()
-    for name, pdata in plugin_results.items():
+    for name in scheduler.due():
+        pdata = plugin_mgr.invoke(name)
         if not pdata:
             continue
         if log_thoughts:
@@ -52,6 +62,10 @@ def main() -> None:
         plugin_plan = plan(str(pdata), config={"enable_recursive_planning": enable_recursive_planning})
         if log_thoughts:
             log_thought(str(plugin_plan), tag=f"plan_{name}")
+        if visual_conf.get("enabled"):
+            visualize(plugin_plan, Path(__file__).with_name("visuals"))
+        if speaker_conf.get("enabled"):
+            speak(plugin_plan.get("content", ""), speaker_conf)
         if plugin_plan.get("action") == "write_code":
             output_path = Path(__file__).with_name(f"{name}_output.txt")
             content = plugin_plan.get("content", "")
