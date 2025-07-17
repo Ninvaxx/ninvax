@@ -9,39 +9,55 @@ from typing import Any, Dict, Callable
 PLUGIN_DIR = Path(__file__).resolve().parent.parent / "plugins"
 
 
+def load_plugins() -> Dict[str, Any]:
+    """Dynamically import all plugins and return a dict of modules."""
+    plugins: Dict[str, Any] = {}
+    for path in PLUGIN_DIR.glob("*.py"):
+        if path.name == "__init__.py":
+            continue
+        name = path.stem
+        try:
+            module = importlib.import_module(f"ai_bot.plugins.{name}")
+            plugins[name] = module
+        except Exception as exc:  # pragma: no cover - import errors shouldn't crash
+            print(f"Failed to import plugin {name}: {exc}")
+    return plugins
+
+
 class PluginManager:
     """Manage discovery and invocation of plugins."""
 
     def __init__(self, config: Dict[str, Any]):
         self.config = config
-        self.plugins: Dict[str, Any] = {}
+        self.plugins: Dict[str, Any] = load_plugins()
         self.methods: Dict[str, Dict[str, Callable]] = {}
-        self.load_plugins()
+        self._register_methods()
 
     # ------------------------------------------------------------------
-    def load_plugins(self) -> None:
+    def load_plugins(self) -> Dict[str, Any]:
+        """Compatibility wrapper returning loaded plugins."""
+        self.plugins = load_plugins()
+        self._register_methods()
+        return self.plugins
+
+    # ------------------------------------------------------------------
+    def _register_methods(self) -> None:
         plug_conf = self.config.get("plugins", {})
         enabled_list = plug_conf.get("enabled", [])
-        for path in PLUGIN_DIR.glob("*.py"):
-            if path.name == "__init__.py":
-                continue
-            name = path.stem
+        for name, module in list(self.plugins.items()):
             if enabled_list and name not in enabled_list:
                 if not plug_conf.get(name, {}).get("enabled", False):
+                    self.plugins.pop(name, None)
                     continue
             if plug_conf.get(name, {}).get("enabled", True) is False:
+                self.plugins.pop(name, None)
                 continue
-            try:
-                module = importlib.import_module(f"ai_bot.plugins.{name}")
-                self.plugins[name] = module
-                methods = {}
-                for meth in ("fetch", "run"):
-                    if hasattr(module, meth):
-                        methods[meth] = getattr(module, meth)
-                if methods:
-                    self.methods[name] = methods
-            except Exception as exc:
-                print(f"Failed to load plugin {name}: {exc}")
+            methods = {}
+            for meth in ("fetch", "run"):
+                if hasattr(module, meth):
+                    methods[meth] = getattr(module, meth)
+            if methods:
+                self.methods[name] = methods
 
     # ------------------------------------------------------------------
     def invoke(self, name: str) -> Any:
