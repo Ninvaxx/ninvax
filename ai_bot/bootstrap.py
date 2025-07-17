@@ -14,6 +14,7 @@ from tools.code_reviewer import review_update
 
 from inputs.web_scraper import scrape_site
 from brain.planner import plan
+from brain.plugin_manager import PluginManager
 from tools.code_writer import write_file
 from tools.evaluate import evaluate_thoughts
 
@@ -28,6 +29,7 @@ def load_config() -> dict:
 
 def main() -> None:
     config = load_config()
+    plugin_mgr = PluginManager(config)
     testing_enabled = config.get("testing_enabled", True)
     log_thoughts = config.get("log_thoughts", False)
     auto_evaluate = config.get("auto_evaluate", False)
@@ -40,6 +42,25 @@ def main() -> None:
     action_plan = plan(data, config={"enable_recursive_planning": enable_recursive_planning})
     if log_thoughts:
         log_thought(str(action_plan), tag="plan")
+
+    plugin_results = plugin_mgr.check_all()
+    for name, pdata in plugin_results.items():
+        if not pdata:
+            continue
+        if log_thoughts:
+            log_thought(str(pdata), tag=f"plugin_{name}")
+        plugin_plan = plan(str(pdata), config={"enable_recursive_planning": enable_recursive_planning})
+        if log_thoughts:
+            log_thought(str(plugin_plan), tag=f"plan_{name}")
+        if plugin_plan.get("action") == "write_code":
+            output_path = Path(__file__).with_name(f"{name}_output.txt")
+            content = plugin_plan.get("content", "")
+            write_file(output_path, content)
+            print(f"Wrote plan output to {output_path}")
+            if log_thoughts:
+                log_thought(content, tag=f"code_{name}")
+            if testing_enabled and plugin_plan.get("testable"):
+                run_tests(output_path)
 
     if action_plan.get("action") == "write_code":
         output_path = Path(__file__).with_name("generated.txt")
