@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Ninvax</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/cyberpunk.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="signup.html">Beta Signup</a>
+  </nav>
+  <div class="container">
+    <div class="saturn-ring-animation" style="display:block;"></div>
+    <h1 class="glitch">Contact Us</h1>
+    <form onsubmit="handleContact(event, '/contact')">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Message" required></textarea>
+      <button type="submit" class="neon-button">Send</button>
+    </form>
+    <div id="confirmation" style="display:none;">Thanks for reaching out!</div>
+  </div>
+  <footer>
+    <p>Ninvax 🪐 2025</p>
+  </footer>
+  <script src="assets/js/cyberpunk.js"></script>
+</body>
+</html>

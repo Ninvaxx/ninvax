@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ninvax Beta Signup 🪐</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/cyberpunk.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="signup.html" class="active">Beta Signup</a>
+  </nav>
+  <div class="container">
+    <h1 class="glitch">Ninvax Beta 🪐</h1>
+    <p class="tagline">Join the revolution. Reframe your reality.</p>
+    <form id="beta-signup" onsubmit="handleSignup(event)">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <button type="submit" class="neon-button">Join Now</button>
+    </form>
+    <div id="confirmation" style="display:none;">
+      <div class="saturn-ring-animation" style="display:none;"></div>
+      <p>Thanks for joining the revolution! See you at Ninvax Neon Nights 🪐</p>
+    </div>
+    <a href="index.html" class="neon-button">Back to Home</a>
+  </div>
+  <footer>
+    <p>Ninvax 🪐 2025</p>
+  </footer>
+  <script src="assets/js/cyberpunk.js"></script>
+</body>
+</html>

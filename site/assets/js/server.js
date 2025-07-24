@@ -1,5 +1,6 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -35,6 +36,24 @@ app.post('/contact', async (req, res) => {
     console.error(err);
     res.status(500).json({ status: 'error' });
   }
+});
+
+app.post('/signup', (req, res) => {
+  const { name, email } = req.body;
+  if (!name || !email) {
+    return res.status(400).send('Missing fields');
+  }
+  const signup = { name, email, timestamp: new Date().toISOString() };
+  const file = require('path').join(__dirname, '..', 'beta_signups.json');
+  let data = [];
+  try {
+    data = JSON.parse(fs.readFileSync(file));
+  } catch (err) {
+    // file might not exist or be empty
+  }
+  data.push(signup);
+  fs.writeFileSync(file, JSON.stringify(data, null, 2));
+  res.status(200).json({ status: 'ok' });
 });
 
 app.use(express.static('.'));
