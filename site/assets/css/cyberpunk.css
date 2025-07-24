@@ -23,7 +23,9 @@ nav a {
 }
 
 nav a:hover {
+    color: #ff007a;
     text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff007a;
+    animation: glitch-hover 0.2s alternate 2;
 }
 
 .hero {
@@ -35,7 +37,7 @@ nav a:hover {
     font-size: 3em;
     color: #ff00ff;
     margin: 0 0 20px;
-    animation: glitch 1s linear infinite;
+    animation: glitch 1s linear infinite, neon-flicker 4s linear infinite;
 }
 
 .hero p {
@@ -51,12 +53,14 @@ nav a:hover {
     margin-top: 20px;
     text-decoration: none;
     box-shadow: 0 0 10px #ff00ff;
-    transition: box-shadow 0.3s, background 0.3s;
+    transition: box-shadow 0.3s, background 0.3s, transform 0.2s;
 }
 
 .neon-button:hover {
     background: #ff007a;
     box-shadow: 0 0 20px #ff007a;
+    transform: scale(1.05);
+    animation: glitch-hover 0.2s alternate 2;
 }
 
 .container {
@@ -73,6 +77,10 @@ input, textarea {
     background: #1a1a1a;
     border: 2px solid #ff00ff;
     color: #fff;
+}
+input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px #ff007a;
 }
 
 footer {
@@ -104,3 +112,45 @@ footer {
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* Fade in and slide up */
+@keyframes fade-slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Button glitch hover */
+@keyframes glitch-hover {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-2px); }
+}
+
+/* Neon pulsing ring */
+@keyframes neon-pulse {
+    0%, 100% { box-shadow: 0 0 10px #ff00ff; }
+    50% { box-shadow: 0 0 20px #ff007a; }
+}
+
+@keyframes neon-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.fade-slide-up {
+    animation: fade-slide-up 1s ease both;
+}
+
+
+.saturn-ring-animation {
+    animation: spin 3s linear infinite, neon-pulse 2s ease-in-out infinite;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(0deg,rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 4px);
+    mix-blend-mode: overlay;
+    z-index: 1;
+}
