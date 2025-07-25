@@ -1,29 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ninvax</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/cyberpunk.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninvax</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #FF00FF;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #000000;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 2px solid #800080;
+        }
+        .search-bar {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #800080;
+            background-color: #000000;
+            color: #FF00FF;
+        }
+        .strain-list {
+            padding: 10px;
+        }
+        .strain-card {
+            background-color: #000000;
+            border: 2px solid #800080;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            color: #FFFFFF;
+        }
+        .order-btn {
+            background-color: #FF00FF;
+            color: #000000;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .store-form {
+            padding: 10px;
+            border-top: 2px solid #800080;
+            margin: 20px;
+        }
+        .store-form input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #000000;
+            border: 1px solid #800080;
+            color: #FF00FF;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="signup.html">Beta Signup</a>
-  </nav>
-  <div class="hero fade-slide-up">
-    <img src="images/logo.svg" alt="Ninvax logo" style="width:200px;">
-    <h1 class="glitch">Reframe Your Reality from Saturn to the Stars 🪐</h1>
-    <a class="neon-button" href="signup.html">Join the Beta</a>
-  </div>
-  <footer>
-    <p>Ninvax 🪐 2025</p>
-  </footer>
-  <script src="assets/js/animations.js"></script>
+    <div class="header">
+        <h1>Ninvax Marketplace</h1>
+    </div>
+    <input type="text" class="search-bar" placeholder="Search strains..." id="searchInput" onkeyup="filterStrains()">
+    <div class="strain-list" id="strainList"></div>
+
+    <form id="storeForm" class="store-form">
+        <input type="text" id="strainName" placeholder="Strain name" required>
+        <input type="text" id="storeName" placeholder="Store name" required>
+        <input type="number" id="price" placeholder="Price" step="0.01" required>
+        <button type="submit" class="order-btn">Add/Update</button>
+    </form>
+
+    <script>
+        let strains = [
+            { name: 'Cheetah Piss', price: 75.00, store: 'Rochelle Park-Rec' },
+            { name: 'Melted Sherb', price: 75.00, store: 'Rochelle Park-Rec' }
+        ];
+
+        function saveStrains() {
+            localStorage.setItem('strains', JSON.stringify(strains));
+        }
+
+        function loadStrains() {
+            const saved = localStorage.getItem('strains');
+            if (saved) {
+                strains = JSON.parse(saved);
+            }
+        }
+
+        function renderStrains() {
+            const list = document.getElementById('strainList');
+            list.innerHTML = '';
+            strains.forEach((strain, index) => {
+                const card = document.createElement('div');
+                card.className = 'strain-card';
+                card.innerHTML = `<h3>${strain.name}</h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p><button class="order-btn" onclick="orderStrain(${index})">Order</button>`;
+                list.appendChild(card);
+            });
+            filterStrains();
+            saveStrains();
+        }
+
+        function filterStrains() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.getElementsByClassName('strain-card');
+            for (let i = 0; i < cards.length; i++) {
+                const text = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                cards[i].style.display = text.includes(input) ? 'block' : 'none';
+            }
+        }
+
+        function orderStrain(i) {
+            alert('Ordering ' + strains[i].name);
+        }
+
+        document.getElementById('storeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('strainName').value.trim();
+            const store = document.getElementById('storeName').value.trim();
+            const price = parseFloat(document.getElementById('price').value);
+            if (!name || !store || isNaN(price)) return;
+            const existing = strains.find(s => s.name.toLowerCase() === name.toLowerCase());
+            if (existing) {
+                existing.price = price;
+                existing.store = store;
+            } else {
+                strains.push({ name, price, store });
+            }
+            this.reset();
+            renderStrains();
+        });
+
+        window.onload = function() {
+            loadStrains();
+            renderStrains();
+        };
+    </script>
 </body>
 </html>
