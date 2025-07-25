@@ -15,3 +15,12 @@ Copilot handles: architecture, extensibility, developer ergonomics.
 
 This documents how your agents work with each other — building the foundation for a self-evolving team.
 
+
+## Building the iOS app
+
+To open the SwiftUI project in Xcode run:
+
+```bash
+cd NinvaxApp && open NinvaxApp.xcodeproj
+```
+
