@@ -12,6 +12,10 @@
             margin: 0;
             padding: 0;
         }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+        }
         .header {
             background-color: #000000;
             padding: 10px;
@@ -48,7 +52,7 @@
         }
         .store-form {
             padding: 10px;
-            border-top: 2px solid #800080;
+            border: 2px solid #800080;
             margin: 20px;
         }
         .store-form input {
@@ -60,70 +64,65 @@
             color: #FF00FF;
             border-radius: 5px;
         }
+        .submit-btn {
+            background-color: #FF00FF;
+            color: #000000;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: #800080;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Ninvax Marketplace</h1>
     </div>
-    <input type="text" class="search-bar" placeholder="Search strains..." id="searchInput" onkeyup="filterStrains()">
-    <div class="strain-list" id="strainList"></div>
+    <main>
+        <input type="text" class="search-bar" placeholder="Search strains..." id="searchInput" onkeyup="filterStrains()">
+        <div class="strain-list" id="strainList"></div>
 
-    <form id="storeForm" class="store-form">
-        <input type="text" id="strainName" placeholder="Strain name" required>
-        <input type="text" id="storeName" placeholder="Store name" required>
-        <input type="number" id="price" placeholder="Price" step="0.01" required>
-        <button type="submit" class="order-btn">Add/Update</button>
-    </form>
+        <form id="storeForm" class="store-form">
+            <input type="text" id="name" placeholder="Strain name" required>
+            <input type="number" id="price" placeholder="Price" step="0.01" required>
+            <input type="text" id="store" placeholder="Store name" required>
+            <button type="submit" class="submit-btn">Add Strain</button>
+        </form>
+    </main>
 
     <script>
-        let strains = [
+        const strains = [
             { name: 'Cheetah Piss', price: 75.00, store: 'Rochelle Park-Rec' },
             { name: 'Melted Sherb', price: 75.00, store: 'Rochelle Park-Rec' }
         ];
 
-        function saveStrains() {
-            localStorage.setItem('strains', JSON.stringify(strains));
-        }
-
-        function loadStrains() {
-            const saved = localStorage.getItem('strains');
-            if (saved) {
-                strains = JSON.parse(saved);
-            }
-        }
-
-        function renderStrains() {
+        function renderStrains(data = strains) {
             const list = document.getElementById('strainList');
             list.innerHTML = '';
-            strains.forEach((strain, index) => {
+            data.forEach((strain) => {
                 const card = document.createElement('div');
                 card.className = 'strain-card';
-                card.innerHTML = `<h3>${strain.name}</h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p><button class="order-btn" onclick="orderStrain(${index})">Order</button>`;
+                card.innerHTML = `<h3>${strain.name}</h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
                 list.appendChild(card);
             });
-            filterStrains();
-            saveStrains();
         }
 
         function filterStrains() {
             const input = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.getElementsByClassName('strain-card');
-            for (let i = 0; i < cards.length; i++) {
-                const text = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
-                cards[i].style.display = text.includes(input) ? 'block' : 'none';
-            }
-        }
-
-        function orderStrain(i) {
-            alert('Ordering ' + strains[i].name);
+            const filtered = strains.filter(s => s.name.toLowerCase().includes(input));
+            renderStrains(filtered);
         }
 
         document.getElementById('storeForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const name = document.getElementById('strainName').value.trim();
-            const store = document.getElementById('storeName').value.trim();
+            const name = document.getElementById('name').value.trim();
             const price = parseFloat(document.getElementById('price').value);
+            const store = document.getElementById('store').value.trim();
             if (!name || !store || isNaN(price)) return;
             const existing = strains.find(s => s.name.toLowerCase() === name.toLowerCase());
             if (existing) {
@@ -137,9 +136,9 @@
         });
 
         window.onload = function() {
-            loadStrains();
             renderStrains();
         };
     </script>
+    <footer>© 2025 Ninvax</footer>
 </body>
 </html>
