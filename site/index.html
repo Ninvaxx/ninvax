@@ -96,10 +96,33 @@
     </main>
 
     <script>
-        const strains = [
+        let strains = [
             { name: 'Cheetah Piss', price: 75.00, store: 'Rochelle Park-Rec' },
             { name: 'Melted Sherb', price: 75.00, store: 'Rochelle Park-Rec' }
         ];
+
+        async function loadStrains() {
+            const cached = localStorage.getItem('strainsData');
+            const timestamp = localStorage.getItem('strainsTimestamp');
+            const now = Date.now();
+            if (cached && timestamp && now - parseInt(timestamp, 10) < 24 * 60 * 60 * 1000) {
+                strains = JSON.parse(cached);
+                renderStrains();
+                return;
+            }
+            try {
+                const res = await fetch('strains.json');
+                if (res.ok) {
+                    const data = await res.json();
+                    strains = data;
+                    localStorage.setItem('strainsData', JSON.stringify(strains));
+                    localStorage.setItem('strainsTimestamp', now.toString());
+                }
+            } catch (e) {
+                console.error('Failed to fetch strains', e);
+            }
+            renderStrains();
+        }
 
         function renderStrains(data = strains) {
             const list = document.getElementById('strainList');
@@ -132,11 +155,14 @@
                 strains.push({ name, price, store });
             }
             this.reset();
+            localStorage.setItem('strainsData', JSON.stringify(strains));
+            localStorage.setItem('strainsTimestamp', Date.now().toString());
             renderStrains();
         });
 
         window.onload = function() {
-            renderStrains();
+            loadStrains();
+            setInterval(loadStrains, 24 * 60 * 60 * 1000);
         };
     </script>
     <footer>© 2025 Ninvax</footer>
