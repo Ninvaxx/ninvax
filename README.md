@@ -1,26 +1,40 @@
-# ninvax static site
+# Ninvax Monorepo
 
-This repository contains a very small static page used for ninvax's landing page.
-The page simply displays the ninvax logo with purple text on a black background
-and a short "Coming soon…" message.
+This repository houses the various components of the Ninvax project. Each directory contains a separate piece of the stack.
 
-The live site files are located in the `site/` directory.  To preview locally,
-open `site/index.html` in your browser.
+## Directory Overview
 
-## Contributor AI
+- `site/` – static HTML content deployed to GitHub Pages via [`.github/workflows/static.yml`](.github/workflows/static.yml).
+- `frontend/` – Next.js application. Install dependencies with `npm install` and start with `npm run dev`.
+- `backend/` – Express server. Requires environment variables such as `PORT`, `SUPABASE_URL`, `SUPABASE_KEY` and `STRIPE_SECRET`.
+- `NinvaxApp/` – Swift project opened in Xcode (`NinvaxApp.xcodeproj`).
+- `code-engine-core/` – Rust engine built with `cargo build`.
+- `ai_bot/` – Python utilities run via `python ai_bot/bootstrap.py`.
 
-Codex handles: execution logic, branching, memory modeling.
+## Getting Started
 
-Copilot handles: architecture, extensibility, developer ergonomics.
+1. Clone the repository and configure environment variables:
+   - Backend: set `PORT`, `SUPABASE_URL`, `SUPABASE_KEY`, `STRIPE_SECRET` (e.g. in a `.env` file).
+   - Frontend: for the contact API route define `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `CONTACT_EMAIL` (place them in `.env.local`).
+2. Build or run components as needed:
+   ```bash
+   # Static site preview
+   open site/index.html
 
-This documents how your agents work with each other — building the foundation for a self-evolving team.
+   # Frontend
+   cd frontend && npm install && npm run dev
 
+   # Backend
+   cd backend && npm install && npm start
 
-## Building the iOS app
+   # iOS App
+   cd NinvaxApp && open NinvaxApp.xcodeproj
 
-To open the SwiftUI project in Xcode run:
+   # Rust engine
+   cd code-engine-core && cargo build
 
-```bash
-cd NinvaxApp && open NinvaxApp.xcodeproj
-```
+   # AI utilities
+   python ai_bot/bootstrap.py
+   ```
 
+This overview should help you get each part of the project running locally.
