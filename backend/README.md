@@ -13,9 +13,11 @@ This directory provides a basic Express server skeleton intended for Supabase an
    npm start
    ```
 
-Environment variables used:
+Environment variables used are documented in `.env.example`:
 
 - `PORT`
 - `SUPABASE_URL`
 - `SUPABASE_KEY`
 - `STRIPE_SECRET`
+
+Copy this file to `.env` and fill in your keys before starting the server.

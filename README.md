@@ -24,3 +24,9 @@ To open the SwiftUI project in Xcode run:
 cd NinvaxApp && open NinvaxApp.xcodeproj
 ```
 
+## Environment setup
+
+Both the `frontend` and `backend` folders contain a `.env.example` file.
+Copy these templates to `.env.local` or `.env` and provide the required values
+before running the applications.
+
