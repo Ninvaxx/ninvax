@@ -13,9 +13,18 @@ const supabase = createClient(process.env.SUPABASE_URL || '', process.env.SUPABA
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET || '', { apiVersion: '2022-11-15' });
 
+const fs = require('fs');
+const path = require('path');
+
 app.get('/products', async (req, res) => {
-  // Placeholder for product list
-  res.json([]);
+  const dataPath = path.join(__dirname, '..', 'site', 'strains.json');
+  try {
+    const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: 'error' });
+  }
 });
 
 app.post('/purchase', async (req, res) => {

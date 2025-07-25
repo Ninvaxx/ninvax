@@ -21,5 +21,6 @@ Environment variables for the contact API route are listed in `.env.example`:
 - `SMTP_PASS`
 - `CONTACT_EMAIL`
 - `NEXT_PUBLIC_CALENDAR_URL`
+- `BACKEND_URL`
 
 Copy this file to `.env.local` and provide the values for local development.
