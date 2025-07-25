@@ -46,3 +46,12 @@ before running the applications.
 
 This overview should help you get each part of the project running locally.
 
+
+## AI bot dependencies
+
+The AI bot modules rely on a few Python packages. Install them with:
+
+```bash
+pip install -r ai_bot/requirements.txt
+```
+
