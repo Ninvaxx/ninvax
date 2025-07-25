@@ -13,7 +13,7 @@ This directory contains a minimal Next.js setup for the modernized Ninvax site.
    npm run dev
    ```
 
-Environment variables for the contact API route:
+Environment variables for the contact API route are listed in `.env.example`:
 
 - `SMTP_HOST`
 - `SMTP_PORT`
@@ -21,4 +21,4 @@ Environment variables for the contact API route:
 - `SMTP_PASS`
 - `CONTACT_EMAIL`
 
-Create a `.env.local` file with these variables for local development.
+Copy this file to `.env.local` and provide the values for local development.

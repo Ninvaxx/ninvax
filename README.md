@@ -37,4 +37,12 @@ This repository houses the various components of the Ninvax project. Each direct
    python ai_bot/bootstrap.py
    ```
 
+
+## Environment setup
+
+Both the `frontend` and `backend` folders contain a `.env.example` file.
+Copy these templates to `.env.local` or `.env` and provide the required values
+before running the applications.
+
 This overview should help you get each part of the project running locally.
+
