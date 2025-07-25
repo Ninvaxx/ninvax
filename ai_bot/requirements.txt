@@ -1,0 +1,9 @@
+openai
+pyyaml
+requests
+feedparser
+graphviz
+pyttsx3
+sentence-transformers
+faiss-cpu
+numpy

@@ -24,3 +24,12 @@ To open the SwiftUI project in Xcode run:
 cd NinvaxApp && open NinvaxApp.xcodeproj
 ```
 
+
+## AI bot dependencies
+
+The AI bot modules rely on a few Python packages. Install them with:
+
+```bash
+pip install -r ai_bot/requirements.txt
+```
+
