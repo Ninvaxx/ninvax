@@ -1,0 +1,58 @@
+name: Run Python and Node tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Run Python tests
+        run: pytest ai_bot/tests
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        run: |
+          if [ -f frontend/package.json ]; then
+            cd frontend && npm ci
+          fi
+
+      - name: Run frontend tests
+        run: |
+          if [ -f frontend/package.json ] && grep -q "\"test\"" frontend/package.json; then
+            cd frontend && npm test
+          else
+            echo "No frontend tests defined"
+          fi
+
+      - name: Install backend dependencies
+        run: |
+          if [ -f backend/package.json ]; then
+            cd backend && npm ci
+          fi
+
+      - name: Run backend tests
+        run: |
+          if [ -f backend/package.json ] && grep -q "\"test\"" backend/package.json; then
+            cd backend && npm test
+          else
+            echo "No backend tests defined"
+          fi
