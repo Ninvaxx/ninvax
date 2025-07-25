@@ -15,7 +15,7 @@ This repository houses the various components of the Ninvax project. Each direct
 
 1. Clone the repository and configure environment variables:
    - Backend: set `PORT`, `SUPABASE_URL`, `SUPABASE_KEY`, `STRIPE_SECRET` (e.g. in a `.env` file).
-   - Frontend: for the contact API route define `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `CONTACT_EMAIL`, `NEXT_PUBLIC_CALENDAR_URL` (place them in `.env.local`).
+   - Frontend: for the contact API route define `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `CONTACT_EMAIL`, `NEXT_PUBLIC_CALENDAR_URL`. Set `BACKEND_URL` to the running Express server address (place them in `.env.local`).
 2. Build or run components as needed:
    ```bash
    # Static site preview
@@ -42,7 +42,7 @@ This repository houses the various components of the Ninvax project. Each direct
 
 Both the `frontend` and `backend` folders contain a `.env.example` file.
 Copy these templates to `.env.local` or `.env` and provide the required values
-before running the applications.
+before running the applications. `BACKEND_URL` should point to the backend server's address.
 
 This overview should help you get each part of the project running locally.
 
