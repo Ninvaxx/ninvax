@@ -1,6 +1,6 @@
 # Ninvax Frontend
 
-This directory contains a minimal Next.js setup for the modernized Ninvax site.
+This directory contains a minimal Next.js setup for the modernized Ninvax site. The frontend now includes a small blog, a products page and a contact form.
 
 ## Development
 
@@ -20,5 +20,6 @@ Environment variables for the contact API route are listed in `.env.example`:
 - `SMTP_USER`
 - `SMTP_PASS`
 - `CONTACT_EMAIL`
+- `NEXT_PUBLIC_CALENDAR_URL`
 
 Copy this file to `.env.local` and provide the values for local development.
