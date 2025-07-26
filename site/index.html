@@ -227,8 +227,9 @@
             const price = parseFloat(priceInput.value);
             const store = document.getElementById('store').value.trim();
             const priceError = document.getElementById('priceError');
-            if (!name || !store || isNaN(price) || price <= 0) {
-                if (isNaN(price) || price <= 0) {
+            const isInvalidPrice = isNaN(price) || price <= 0;
+            if (!name || !store || isInvalidPrice) {
+                if (isInvalidPrice) {
                     priceError.textContent = 'Price must be > 0';
                 }
                 showToast('Failed to add strain', true);
