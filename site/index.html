@@ -115,6 +115,23 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 4px;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
         footer {
             text-align: center;
             padding: 10px;
@@ -164,9 +181,13 @@
             <input type="text" id="name" placeholder="Strain name" required>
             <input type="number" id="price" placeholder="Price" step="0.01" required>
 
+            <div id="priceError" class="error"></div>
+
+
             <div id="priceError" class="error">Price must be > 0</div>
 
             <div id="priceError" class="error">Price must be &gt; 0</div>
+
 
             <input type="text" id="store" placeholder="Store name" required>
             <button type="submit" class="submit-btn">Add Strain</button>
@@ -226,6 +247,25 @@
             renderStrains(filtered);
         }
 
+
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById('toast');
+            if (!toast) {
+                console.error('Toast element not found in the DOM.');
+                return;
+            }
+            toast.textContent = msg;
+            toast.style.background = isError ? '#d33' : '#4caf50';
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 2000);
+        }
+
+        document.getElementById('price').addEventListener('input', function() {
+            this.value = this.value.match(/^\d*\.?\d*$/) ? this.value : this.value.slice(0, -1);
+        });
+
         const priceInput = document.getElementById('price');
         priceInput.addEventListener('input', function() {
             this.value = this.value.replace(/[^0-9.]/g, '');
@@ -245,9 +285,25 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
+
         document.getElementById('storeForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
+
+            const priceInput = document.getElementById('price');
+            const price = parseFloat(priceInput.value);
+            const store = document.getElementById('store').value.trim();
+            const priceError = document.getElementById('priceError');
+            const isInvalidPrice = isNaN(price) || price <= 0;
+            if (!name || !store || isInvalidPrice) {
+                if (isInvalidPrice) {
+                    priceError.textContent = 'Price must be > 0';
+                }
+                showToast('Failed to add strain', true);
+                return;
+            }
+            priceError.textContent = '';
+
             const priceEl = document.getElementById('price');
             const price = parseFloat(priceEl.value);
             const store = document.getElementById('store').value.trim();
@@ -275,6 +331,7 @@
                 return;
             }
             errorEl.style.display = 'none';
+
 
             const existing = strains.find(s => s.name.toLowerCase() === name.toLowerCase());
             if (existing) {
