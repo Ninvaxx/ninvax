@@ -98,9 +98,14 @@ input, select, textarea {
 		box-sizing: inherit;
 	}
 
-	body {
-		background: #ffffff;
-	}
+body {
+        background: #ffffff;
+}
+a:focus,
+button:focus {
+        outline: 2px solid #000;
+        outline-offset: 2px;
+}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
 			-moz-animation: none !important;

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function ProjectCard({ title, description, image, codeLink, projectLink }) {
   return (
-    <div style={{ border: '1px solid #ddd', borderRadius: '8px', overflow: 'hidden', width: '300px', margin: '1rem' }}>
+    <div tabIndex={0} style={{ border: '1px solid #ddd', borderRadius: '8px', overflow: 'hidden', width: '300px', margin: '1rem' }}>
       {image && (
         <div style={{ position: 'relative', height: '180px' }}>
           <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
