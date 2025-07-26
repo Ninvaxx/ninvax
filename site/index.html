@@ -77,6 +77,26 @@
             color: #FF00FF;
             border-radius: 5px;
         }
+        .error {
+            color: #ff4d4d;
+            font-size: 0.9em;
+            display: none;
+            margin: 4px 0;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .toast.show {
+            opacity: 1;
+        }
         .submit-btn {
             background-color: #FF00FF;
             color: #000000;
@@ -133,6 +153,7 @@
         <form id="storeForm" class="store-form">
             <input type="text" id="name" placeholder="Strain name" required>
             <input type="number" id="price" placeholder="Price" step="0.01" required>
+            <div id="priceError" class="error">Price must be &gt; 0</div>
             <input type="text" id="store" placeholder="Store name" required>
             <button type="submit" class="submit-btn">Add Strain</button>
         </form>
@@ -191,12 +212,38 @@
             renderStrains(filtered);
         }
 
+        const priceInput = document.getElementById('price');
+        priceInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9.]/g, '');
+        });
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.backgroundColor = isError ? '#c0392b' : '#4caf50';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
         document.getElementById('storeForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
-            const price = parseFloat(document.getElementById('price').value);
+            const priceEl = document.getElementById('price');
+            const price = parseFloat(priceEl.value);
             const store = document.getElementById('store').value.trim();
-            if (!name || !store || isNaN(price)) return;
+            const errorEl = document.getElementById('priceError');
+
+            if (!name || !store || isNaN(price) || price <= 0) {
+                if (isNaN(price) || price <= 0) {
+                    errorEl.style.display = 'block';
+                } else {
+                    errorEl.style.display = 'none';
+                }
+                showToast('Price must be > 0', true);
+                return;
+            }
+            errorEl.style.display = 'none';
+
             const existing = strains.find(s => s.name.toLowerCase() === name.toLowerCase());
             if (existing) {
                 existing.price = price;
@@ -208,6 +255,7 @@
             localStorage.setItem('strainsData', JSON.stringify(strains));
             localStorage.setItem('strainsTimestamp', Date.now().toString());
             renderStrains();
+            showToast('Strain added!');
         });
 
         window.onload = function() {
@@ -226,5 +274,6 @@
         </a>
         <span class="chatgpt-badge">Made with ChatGPT</span>
     </div>
+    <div id="toast" class="toast"></div>
 </body>
 </html>
