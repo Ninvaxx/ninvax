@@ -1,9 +1,14 @@
-from sqlalchemy import Column, String, DateTime, ForeignKey
+"""SQLAlchemy ORM models for the Ninvax backend."""
+
+from sqlalchemy import Column, DateTime, ForeignKey, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+
 from .database import Base
 
 class User(Base):
+    """Registered application user."""
+
     __tablename__ = "users"
 
     id = Column(String, primary_key=True)
@@ -12,9 +17,13 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     flags = relationship("Flag", back_populates="user")
-    subscription = relationship("Subscription", uselist=False, back_populates="user")
+    subscription = relationship(
+        "Subscription", uselist=False, back_populates="user"
+    )
 
 class Subscription(Base):
+    """User subscription status."""
+
     __tablename__ = "subscriptions"
 
     id = Column(String, primary_key=True)
@@ -26,6 +35,8 @@ class Subscription(Base):
     user = relationship("User", back_populates="subscription")
 
 class Flag(Base):
+    """Hidden flag that can be claimed by a user."""
+
     __tablename__ = "flags"
 
     id = Column(String, primary_key=True)
@@ -34,3 +45,4 @@ class Flag(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     user = relationship("User", back_populates="flags")
+
