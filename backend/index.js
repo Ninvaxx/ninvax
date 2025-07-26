@@ -15,9 +15,32 @@ const stripe = new Stripe(process.env.STRIPE_SECRET || '', { apiVersion: '2022-1
 
 const fs = require('fs');
 const path = require('path');
+const events = require('events');
+
+const dataPath = path.join(__dirname, '..', 'site', 'strains.json');
+const emitter = new events.EventEmitter();
+let cachedStrains = [];
+// Load data on startup
+loadStrains();
+
+function loadStrains() {
+  try {
+    const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+    cachedStrains = data;
+    return data;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+}
+
+// Watch file for changes and emit updates
+fs.watchFile(dataPath, { interval: 1000 }, () => {
+  const data = loadStrains();
+  emitter.emit('update', data);
+});
 
 app.get('/products', async (req, res) => {
-  const dataPath = path.join(__dirname, '..', 'site', 'strains.json');
   try {
     const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
     res.json(data);
@@ -25,6 +48,28 @@ app.get('/products', async (req, res) => {
     console.error(err);
     res.status(500).json({ status: 'error' });
   }
+});
+
+app.get('/strains/events', (req, res) => {
+  res.set({
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    Connection: 'keep-alive'
+  });
+  res.flushHeaders();
+
+  // Send initial data
+  res.write(`data: ${JSON.stringify(cachedStrains.length ? cachedStrains : loadStrains())}\n\n`);
+
+  const onUpdate = (data) => {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
+  emitter.on('update', onUpdate);
+
+  req.on('close', () => {
+    emitter.off('update', onUpdate);
+  });
 });
 
 app.post('/purchase', async (req, res) => {
