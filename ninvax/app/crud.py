@@ -81,3 +81,13 @@ def get_found_flags(db: Session, user_id: str) -> List[models.Flag]:
     """Return all flags claimed by a user."""
     return db.query(models.Flag).filter(models.Flag.user_id == user_id).all()
 
+
+
+def get_user(db: Session, user_id: str) -> Optional[models.User]:
+    """Retrieve a user by ID."""
+    return db.query(models.User).filter(models.User.id == user_id).first()
+
+
+def get_all_flags(db: Session) -> List[models.Flag]:
+    """Return all flags."""
+    return db.query(models.Flag).all()
