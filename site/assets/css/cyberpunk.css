@@ -12,6 +12,10 @@ body {
 nav {
     text-align: center;
     padding: 20px 0;
+    position: sticky;
+    top: 0;
+    background-color: #000000;
+    z-index: 1000;
 }
 
 nav a {
