@@ -10,7 +10,7 @@ try:
 except Exception:  # pragma: no cover - optional
     feedparser = None
 
-from ai_bot.brain.embeddings.vector_store import get_vector_store
+from bot.brain.embeddings.vector_store import get_vector_store
 
 
 def fetch(config: Dict[str, Any]) -> List[Dict[str, Any]]:

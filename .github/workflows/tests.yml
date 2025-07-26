@@ -22,7 +22,7 @@ jobs:
           pip install pytest
 
       - name: Run Python tests
-        run: pytest ai_bot/tests
+        run: pytest apps/bot/tests
 
       - name: Set up Node
         uses: actions/setup-node@v3
@@ -31,28 +31,28 @@ jobs:
 
       - name: Install frontend dependencies
         run: |
-          if [ -f frontend/package.json ]; then
-            cd frontend && npm ci
+          if [ -f apps/web/package.json ]; then
+            cd apps/web && npm ci
           fi
 
       - name: Run frontend tests
         run: |
-          if [ -f frontend/package.json ] && grep -q "\"test\"" frontend/package.json; then
-            cd frontend && npm test
+          if [ -f apps/web/package.json ] && grep -q "\"test\"" apps/web/package.json; then
+            cd apps/web && npm test
           else
             echo "No frontend tests defined"
           fi
 
       - name: Install backend dependencies
         run: |
-          if [ -f backend/package.json ]; then
-            cd backend && npm ci
+          if [ -f apps/backend/express/package.json ]; then
+            cd apps/backend/express && npm ci
           fi
 
       - name: Run backend tests
         run: |
-          if [ -f backend/package.json ] && grep -q "\"test\"" backend/package.json; then
-            cd backend && npm test
+          if [ -f apps/backend/express/package.json ] && grep -q "\"test\"" apps/backend/express/package.json; then
+            cd apps/backend/express && npm test
           else
             echo "No backend tests defined"
           fi

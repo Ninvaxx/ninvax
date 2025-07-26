@@ -1,4 +1,4 @@
-import ai_bot.brain.scheduler as scheduler
+import bot.brain.scheduler as scheduler
 from datetime import datetime, timedelta
 from unittest.mock import patch
 

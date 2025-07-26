@@ -2,8 +2,8 @@
 
 from typing import Any, Optional, Dict
 
-from ai_bot.brain.embeddings.vector_store import get_vector_store
-from ai_bot.tools.self_review import summarize_thoughts
+from bot.brain.embeddings.vector_store import get_vector_store
+from bot.tools.self_review import summarize_thoughts
 
 
 def _is_testable(content: str) -> bool:

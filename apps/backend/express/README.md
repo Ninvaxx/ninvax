@@ -1,4 +1,6 @@
-# Ninvax Backend
+# Express Backend
+
+This subfolder contains the legacy Node.js server used for prototypes.
 
 This directory provides a basic Express server skeleton intended for Supabase and Stripe integration.
 

@@ -17,7 +17,7 @@ const fs = require('fs');
 const path = require('path');
 const events = require('events');
 
-const dataPath = path.join(__dirname, '..', 'site', 'strains.json');
+const dataPath = path.join(__dirname, '..', '..', 'site', 'strains.json');
 const emitter = new events.EventEmitter();
 let cachedStrains = [];
 // Load data on startup

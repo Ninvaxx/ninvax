@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import List
 
-from ai_bot.brain.thoughts import THOUGHTS_DIR
+from bot.brain.thoughts import THOUGHTS_DIR
 
 
 def summarize_thoughts(limit: int = 5) -> str:

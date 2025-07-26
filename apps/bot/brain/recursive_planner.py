@@ -10,9 +10,9 @@ try:
 except Exception:  # pragma: no cover - optional
     openai = None
 
-from ai_bot.brain.memory import MEMORY_PATH, load_memory
-from ai_bot.brain.thoughts import THOUGHTS_DIR
-from ai_bot.brain.embeddings.vector_store import STORE_PATH
+from bot.brain.memory import MEMORY_PATH, load_memory
+from bot.brain.thoughts import THOUGHTS_DIR
+from bot.brain.embeddings.vector_store import STORE_PATH
 
 BASE_DIR = Path(__file__).parent
 PROPOSAL_DIFF = BASE_DIR / "proposed_update.diff"

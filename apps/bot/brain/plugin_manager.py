@@ -17,7 +17,7 @@ def load_plugins() -> Dict[str, Any]:
             continue
         name = path.stem
         try:
-            module = importlib.import_module(f"ai_bot.plugins.{name}")
+            module = importlib.import_module(f"bot.plugins.{name}")
             plugins[name] = module
         except Exception as exc:  # pragma: no cover - import errors shouldn't crash
             print(f"Failed to import plugin {name}: {exc}")
