@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProjectCard from '../components/ProjectCard';
 import Schedule from '../components/Schedule';
+import AdBanner from '../components/AdBanner';
 
 const projects = [
   {
@@ -47,6 +48,7 @@ export default function Home() {
             <ProjectCard key={proj.title} {...proj} />
           ))}
         </div>
+        <AdBanner />
         <Schedule />
       </main>
       <Footer />
