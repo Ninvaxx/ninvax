@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import StrainCard from '../components/StrainCard';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -17,11 +18,9 @@ export default function Products() {
       <Navbar />
       <main style={{ padding: '2rem' }}>
         <h1>Products</h1>
-        <ul>
-          {products.map((p) => (
-            <li key={p.name}>{p.name} - ${p.price} at {p.store}</li>
-          ))}
-        </ul>
+        {products.map((p) => (
+          <StrainCard key={p.name} name={p.name} price={p.price} store={p.store} thumbnail={p.thumbnail || '/placeholder-thumbnail.jpg'} />
+        ))}
       </main>
       <Footer />
     </>
