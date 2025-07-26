@@ -229,10 +229,15 @@
             if (!name || !store || isNaN(price) || price <= 0) {
                 if (isNaN(price) || price <= 0) {
                     errorEl.style.display = 'block';
+                    showToast('Price must be > 0', true);
                 } else {
                     errorEl.style.display = 'none';
+                    if (!name) {
+                        showToast('Name is required', true);
+                    } else if (!store) {
+                        showToast('Store is required', true);
+                    }
                 }
-                showToast('Price must be > 0', true);
                 return;
             }
             errorEl.style.display = 'none';
