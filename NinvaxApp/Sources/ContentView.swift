@@ -2,12 +2,15 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var searchText: String = ""
-
-    private let allStrains: [Strain] = [
+    @State private var strains: [Strain] = [
         Strain(id: UUID(), name: "Alpha", price: 12.0, store: "Downtown"),
         Strain(id: UUID(), name: "Beta", price: 15.5, store: "Uptown"),
         Strain(id: UUID(), name: "Gamma", price: 20.0, store: "East Side")
     ]
+    @State private var showAddModal = false
+    @State private var page: Int = 0
+
+    private let pageSize = 2
 
     private let neonPink = Color(red: 1.0, green: 0.0, blue: 0.5)
 
@@ -21,8 +24,21 @@ struct ContentView: View {
     }
 
     var filteredStrains: [Strain] {
-        if searchText.isEmpty { return allStrains }
-        return allStrains.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        if searchText.isEmpty { return strains }
+        return strains.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+    }
+
+    var pagedStrains: [Strain] {
+        let filtered = filteredStrains
+        let start = page * pageSize
+        let end = min(start + pageSize, filtered.count)
+        if start < end { return Array(filtered[start..<end]) }
+        return []
+    }
+
+    var maxPage: Int {
+        let count = filteredStrains.count
+        return count == 0 ? 0 : (count - 1) / pageSize
     }
 
     var body: some View {
@@ -30,18 +46,17 @@ struct ContentView: View {
             ZStack(alignment: .bottomTrailing) {
                 Color.black.ignoresSafeArea()
                 VStack {
-                    TextField("Search", text: $searchText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                    SearchBar(text: $searchText)
                     ScrollView {
-                        ForEach(filteredStrains) { strain in
+                        ForEach(pagedStrains) { strain in
                             StrainCard(strain: strain)
                                 .padding(.horizontal)
                         }
                     }
+                    PaginationControls(page: $page, maxPage: maxPage)
                 }
-                Button(action: { /* map action */ }) {
-                    Image(systemName: "map")
+                Button(action: { showAddModal = true }) {
+                    Image(systemName: "plus")
                         .padding()
                         .background(neonPink)
                         .foregroundColor(.white)
@@ -50,6 +65,11 @@ struct ContentView: View {
                 .padding()
             }
             .navigationTitle("Ninvax")
+        }
+        .sheet(isPresented: $showAddModal) {
+            AddStrainModal(isPresented: $showAddModal) { strain in
+                strains.append(strain)
+            }
         }
     }
 }
