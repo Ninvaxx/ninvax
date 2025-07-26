@@ -204,6 +204,10 @@
 
         function showToast(msg, isError = false) {
             const toast = document.getElementById('toast');
+            if (!toast) {
+                console.error('Toast element not found in the DOM.');
+                return;
+            }
             toast.textContent = msg;
             toast.style.background = isError ? '#d33' : '#4caf50';
             toast.style.opacity = '1';
