@@ -23,6 +23,14 @@
             border-bottom: 2px solid #800080;
             animation: pulse 3s infinite;
         }
+        .nav {
+            margin-top: 10px;
+        }
+        .nav a {
+            color: #FF00FF;
+            margin: 0 10px;
+            text-decoration: none;
+        }
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 5px #800080; }
             50% { box-shadow: 0 0 15px #ff00ff; }
@@ -111,6 +119,12 @@
 <body>
     <div class="header">
         <h1>Ninvax Marketplace</h1>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="login.html" id="loginLink">Login</a>
+            <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
+            <a href="#" id="logoutLink" style="display:none;">Logout</a>
+        </nav>
     </div>
     <main>
         <input type="text" class="search-bar" placeholder="Search strains..." id="searchInput" onkeyup="filterStrains()">
@@ -194,6 +208,7 @@
             setInterval(loadStrains, 24 * 60 * 60 * 1000);
         };
     </script>
+    <script src="assets/js/auth.js"></script>
     <footer>© 2025 Ninvax</footer>
     <div class="openai-credit">
         <a href="https://openai.com" target="_blank" rel="noopener">
