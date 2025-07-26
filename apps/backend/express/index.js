@@ -50,6 +50,41 @@ app.get('/products', async (req, res) => {
   }
 });
 
+// Endpoint to generate a Stripe Terminal connection token
+app.post('/terminal/connection_token', async (req, res) => {
+  try {
+    const token = await stripe.terminal.connectionTokens.create();
+    res.json({ secret: token.secret });
+  } catch (err) {
+    console.error('Failed to create connection token', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Create a PaymentIntent for Tap to Pay clients
+app.post('/terminal/create_payment_intent', async (req, res) => {
+  const { amount, currency } = req.body;
+  try {
+    const intent = await stripe.paymentIntents.create({ amount, currency });
+    res.json({ client_secret: intent.client_secret, id: intent.id });
+  } catch (err) {
+    console.error('Failed to create PaymentIntent', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Capture a previously created PaymentIntent
+app.post('/terminal/capture_payment_intent', async (req, res) => {
+  const { id } = req.body;
+  try {
+    const intent = await stripe.paymentIntents.capture(id);
+    res.json({ status: intent.status });
+  } catch (err) {
+    console.error('Failed to capture PaymentIntent', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/strains/events', (req, res) => {
   res.set({
     'Content-Type': 'text/event-stream',
