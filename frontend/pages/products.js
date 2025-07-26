@@ -19,7 +19,7 @@ export default function Products() {
       <main style={{ padding: '2rem' }}>
         <h1>Products</h1>
         {products.map((p) => (
-          <StrainCard key={p.name} name={p.name} price={p.price} store={p.store} />
+          <StrainCard key={p.name} name={p.name} price={p.price} store={p.store} thumbnail={p.thumbnail || '/placeholder-thumbnail.jpg'} />
         ))}
       </main>
       <Footer />
