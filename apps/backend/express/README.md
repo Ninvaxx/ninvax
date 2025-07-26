@@ -23,3 +23,13 @@ Environment variables used are documented in `.env.example`:
 - `STRIPE_SECRET`
 
 Copy this file to `.env` and fill in your keys before starting the server.
+
+### API Endpoints
+
+The server exposes a few endpoints related to Stripe Terminal "Tap to Pay":
+
+| Method | Path | Description |
+| ------ | ---- | ----------- |
+| `POST` | `/terminal/connection_token` | Create a connection token for the SDK |
+| `POST` | `/terminal/create_payment_intent` | Create a PaymentIntent |
+| `POST` | `/terminal/capture_payment_intent` | Capture a PaymentIntent |
