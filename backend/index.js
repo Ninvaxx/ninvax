@@ -77,6 +77,26 @@ app.post('/purchase', async (req, res) => {
   res.json({});
 });
 
+// Stripe webhook handler
+app.post('/webhook', (req, res) => {
+  const event = req.body;
+
+  switch (event.type) {
+    case 'customer.subscription.created':
+      console.log(
+        `Subscription created for customer ${event.data.object.customer}`
+      );
+      break;
+    case 'customer.deleted':
+      console.log(`Customer deleted: ${event.data.object.id}`);
+      break;
+    default:
+      console.log(`Unhandled event type ${event.type}`);
+  }
+
+  res.json({ received: true });
+});
+
 app.listen(port, () => {
   console.log(`Backend running on port ${port}`);
 });
