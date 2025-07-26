@@ -153,7 +153,11 @@
         <form id="storeForm" class="store-form">
             <input type="text" id="name" placeholder="Strain name" required>
             <input type="number" id="price" placeholder="Price" step="0.01" required>
+
+            <div id="priceError" class="error">Price must be > 0</div>
+
             <div id="priceError" class="error">Price must be &gt; 0</div>
+
             <input type="text" id="store" placeholder="Store name" required>
             <button type="submit" class="submit-btn">Add Strain</button>
         </form>
@@ -219,6 +223,12 @@
 
         function showToast(message, isError = false) {
             const toast = document.getElementById('toast');
+
+            if (!toast) {
+                console.warn('Toast element not found in the DOM.');
+                return;
+            }
+
             toast.textContent = message;
             toast.style.backgroundColor = isError ? '#c0392b' : '#4caf50';
             toast.classList.add('show');
@@ -236,10 +246,22 @@
             if (!name || !store || isNaN(price) || price <= 0) {
                 if (isNaN(price) || price <= 0) {
                     errorEl.style.display = 'block';
+
+                    showToast('Price must be > 0', true);
+                } else {
+                    errorEl.style.display = 'none';
+                    if (!name) {
+                        showToast('Name is required', true);
+                    } else if (!store) {
+                        showToast('Store is required', true);
+                    }
+                }
+
                 } else {
                     errorEl.style.display = 'none';
                 }
                 showToast('Price must be > 0', true);
+
                 return;
             }
             errorEl.style.display = 'none';
