@@ -5,7 +5,7 @@ This repository houses the various components of the Ninvax project. Each direct
 ## Directory Overview
 
 - `site/` – static HTML content deployed to GitHub Pages via [`.github/workflows/static.yml`](.github/workflows/static.yml).
-- `frontend/` – Next.js application featuring a blog, products page and contact form. Install dependencies with `npm install` and start with `npm run dev`.
+- `frontend/` – Next.js application featuring a blog, products page and contact form. Install dependencies with `npm install` and start with `npm run dev`. The products page now shows a mini-map of stores and receives live strain updates via SSE from the backend.
 - `backend/` – Express server. Requires environment variables such as `PORT`, `SUPABASE_URL`, `SUPABASE_KEY` and `STRIPE_SECRET`.
 - `NinvaxApp/` – Swift project opened in Xcode (`NinvaxApp.xcodeproj`).
 - `code-engine-core/` – Rust engine built with `cargo build`.
