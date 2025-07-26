@@ -22,9 +22,18 @@
     <div class="saturn-ring-animation" style="display:block;"></div>
     <h1 class="glitch">Contact Us</h1>
     <form onsubmit="handleContact(event, '/contact')">
-      <input type="text" name="name" placeholder="Name" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <textarea name="message" placeholder="Message" required></textarea>
+      <label>
+        Name
+        <input type="text" name="name" placeholder="Name" aria-label="Name" required>
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" placeholder="Email" aria-label="Email" required>
+      </label>
+      <label>
+        Message
+        <textarea name="message" placeholder="Message" aria-label="Message" required></textarea>
+      </label>
       <button type="submit" class="neon-button">Send</button>
     </form>
     <div id="confirmation" style="display:none;">Thanks for reaching out!</div>

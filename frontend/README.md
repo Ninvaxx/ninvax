@@ -1,6 +1,6 @@
 # Ninvax Frontend
 
-This directory contains a minimal Next.js setup for the modernized Ninvax site. The frontend now includes a small blog, a products page and a contact form.
+This directory contains a minimal Next.js setup for the modernized Ninvax site. The frontend now includes a small blog, a products page with a mini-map, and a contact form. The products page connects to the backend's `/strains/events` SSE endpoint so new strains appear live.
 
 ## Development
 

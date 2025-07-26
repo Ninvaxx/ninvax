@@ -32,9 +32,12 @@ export default function Contact() {
       <main style={{ padding: '2rem' }}>
         <h1>Contact</h1>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '400px' }}>
-          <input type="text" name="name" placeholder="Name" required style={{ marginBottom: '0.5rem' }} />
-          <input type="email" name="email" placeholder="Email" required style={{ marginBottom: '0.5rem' }} />
-          <textarea name="message" placeholder="Message" required style={{ marginBottom: '0.5rem' }} />
+          <label htmlFor="name">Name</label>
+          <input id="name" type="text" name="name" placeholder="Name" aria-label="Name" required style={{ marginBottom: '0.5rem' }} />
+          <label htmlFor="email">Email</label>
+          <input id="email" type="email" name="email" placeholder="Email" aria-label="Email" required style={{ marginBottom: '0.5rem' }} />
+          <label htmlFor="message">Message</label>
+          <textarea id="message" name="message" placeholder="Message" aria-label="Message" required style={{ marginBottom: '0.5rem' }} />
           <button type="submit">Send</button>
         </form>
         {status && <p>{status}</p>}

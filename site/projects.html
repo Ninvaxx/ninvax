@@ -60,20 +60,26 @@
 						<div class="inner">
 							<section>
 								<h2>Get in touch</h2>
-								<form method="post" action="/contact">
-									<div class="fields">
-										<div class="field half">
-											<input type="text" name="name" id="name" placeholder="Name" />
-										</div>
-										<div class="field half">
-											<input type="email" name="email" id="email" placeholder="Email" />
-										</div>
-										<div class="field">
-											<textarea name="message" id="message" placeholder="Message"></textarea>
-										</div>
-									</div>
+                                                                <form method="post" action="/contact">
+                                                                        <div class="fields">
+                                                                               <div class="field half">
+                                                                               <label>Name
+                                                                               <input type="text" name="name" id="name" placeholder="Name" aria-label="Name" />
+                                                                               </label>
+                                                                               </div>
+                                                                               <div class="field half">
+                                                                               <label>Email
+                                                                               <input type="email" name="email" id="email" placeholder="Email" aria-label="Email" />
+                                                                               </label>
+                                                                               </div>
+                                                                               <div class="field">
+                                                                               <label>Message
+                                                                               <textarea name="message" id="message" placeholder="Message" aria-label="Message"></textarea>
+                                                                               </label>
+                                                                               </div>
+                                                                        </div>
 									<ul class="actions">
-										<li><input type="submit" value="Send" class="primary" /></li>
+										<li><input type="submit" value="Send" class="primary" aria-label="Send" /></li>
 									</ul>
 								</form>
 							</section>

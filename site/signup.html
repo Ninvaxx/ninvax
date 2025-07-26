@@ -23,8 +23,14 @@
     <h1 class="glitch">Ninvax Beta 🪐</h1>
     <p class="tagline">Join the revolution. Reframe your reality.</p>
     <form id="beta-signup" onsubmit="handleSignup(event)">
-      <input type="text" name="name" placeholder="Name" required>
-      <input type="email" name="email" placeholder="Email" required>
+      <label>
+        Name
+        <input type="text" name="name" placeholder="Name" aria-label="Name" required>
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" placeholder="Email" aria-label="Email" required>
+      </label>
       <button type="submit" class="neon-button">Join Now</button>
     </form>
     <div id="confirmation" style="display:none;">
