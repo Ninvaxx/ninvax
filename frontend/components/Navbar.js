@@ -8,7 +8,8 @@ export default function Navbar() {
       </Link>
       <Link href="/blog" style={{ color: '#fff', marginRight: '1rem' }}>Blog</Link>
       <Link href="/products" style={{ color: '#fff', marginRight: '1rem' }}>Products</Link>
-      <Link href="/contact" style={{ color: '#fff' }}>Contact</Link>
+      <Link href="/contact" style={{ color: '#fff', marginRight: '1rem' }}>Contact</Link>
+      <Link href="/notes" style={{ color: '#fff' }}>Notes</Link>
     </nav>
   );
 }
