@@ -174,20 +174,17 @@ body::before {
 /* AI credit badges */
 .ai-credit {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    margin: 2em 0;
+    gap: 0.5em;
+    margin: 1em 0;
+    font-size: clamp(0.6rem, 1.5vw, 0.9rem);
 }
 
-.openai-logo,
-.anthropic-logo,
-.gemini-logo,
-.cohere-logo,
-.mlh-sticker,
-.ninvax-logo {
-    width: 32px;
-    height: 32px;
+.ai-credit img {
+    width: clamp(20px, 4vw, 32px);
+    height: clamp(20px, 4vw, 32px);
 }
 
 .openai-logo {
@@ -198,11 +195,10 @@ body::before {
 .anthropic-badge,
 .gemini-badge,
 .cohere-badge {
-    padding: 4px 8px;
+    padding: 2px 6px;
     border-radius: 6px;
-    font-size: 0.9em;
-    color: #000;
     background: #fff;
+    color: #000;
 }
 
 .anthropic-badge { background: #f5f0e6; }

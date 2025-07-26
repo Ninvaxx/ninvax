@@ -160,23 +160,29 @@
         }
         .ai-credit {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin: 20px 0;
+            gap: 0.5em;
+            margin: 1em 0;
+            font-size: clamp(0.6rem, 1.5vw, 0.9rem);
+        }
+        .ai-credit img {
+            width: clamp(20px, 4vw, 32px);
+            height: clamp(20px, 4vw, 32px);
+            vertical-align: middle;
         }
         .openai-logo {
-            width: 32px;
-            height: 32px;
-            vertical-align: middle;
             animation: spin 6s linear infinite;
         }
-        .chatgpt-badge {
+        .chatgpt-badge,
+        .anthropic-badge,
+        .gemini-badge,
+        .cohere-badge {
             background: #fff;
             color: #000;
-            padding: 4px 8px;
+            padding: 2px 6px;
             border-radius: 6px;
-            font-size: 0.9em;
         }
         @keyframes spin {
             from { transform: rotate(0deg); }
@@ -437,13 +443,13 @@
     <footer>© 2025 Ninvax</footer>
     <div class="ai-credit">
     <img src="images/openai-logo.svg" alt="OpenAI" class="openai-logo">
-    <span class="chatgpt-badge">ChatGPT</span>
+    <span class="chatgpt-badge">Made with ChatGPT</span>
     <img src="images/anthropic-logo.svg" alt="Anthropic" class="anthropic-logo">
-    <span class="anthropic-badge">Claude</span>
+    <span class="anthropic-badge">Made with Claude</span>
     <img src="images/gemini-logo.svg" alt="Gemini" class="gemini-logo">
-    <span class="gemini-badge">Gemini</span>
+    <span class="gemini-badge">Made with Gemini</span>
     <img src="images/cohere-logo.svg" alt="Cohere" class="cohere-logo">
-    <span class="cohere-badge">Cohere</span>
+    <span class="cohere-badge">Made with Cohere</span>
     <img src="images/mlh-sticker.svg" alt="MLH" class="mlh-sticker">
     <img src="images/logo.svg" alt="Ninvax" class="ninvax-logo">
   </div>
