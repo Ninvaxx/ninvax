@@ -73,6 +73,11 @@
         .strain-card:focus {
             outline: 2px solid #ff00ff;
         }
+        .star {
+            cursor: pointer;
+            color: #FFD700;
+            margin-left: 5px;
+        }
         .order-btn {
             background-color: #FF00FF;
             color: #000000;
@@ -183,9 +188,10 @@
     <div class="header">
         <h1>Ninvax Marketplace</h1>
         <nav class="nav">
-            <a href="index.html">Home</a>
+            <a href="#" id="homeTab">Home</a>
             <a href="login.html" id="loginLink">Login</a>
             <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
+            <a href="#" id="favoritesTab">Favorites</a>
             <a href="#" id="logoutLink" style="display:none;">Logout</a>
         </nav>
     </div>
@@ -242,6 +248,9 @@
             { name: 'Melted Sherb', price: 75.00, store: 'Rochelle Park-Rec' }
         ];
 
+        let favorites = JSON.parse(localStorage.getItem('starredStrains') || '[]');
+        let showingFavorites = false;
+
         async function loadStrains() {
             const cached = localStorage.getItem('strainsData');
             const timestamp = localStorage.getItem('strainsTimestamp');
@@ -271,15 +280,36 @@
             data.forEach((strain) => {
                 const card = document.createElement('div');
                 card.className = 'strain-card';
+
+                const starred = favorites.includes(strain.name) ? '★' : '☆';
+                card.innerHTML = `<h3>${strain.name} <span class="star" onclick="toggleFavorite('${strain.name}')">${starred}</span></h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
+
                 card.tabIndex = 0;
                 card.innerHTML = `<h3>${strain.name}</h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
+
                 list.appendChild(card);
             });
         }
 
+        function toggleFavorite(name) {
+            const idx = favorites.indexOf(name);
+            if (idx > -1) {
+                favorites.splice(idx, 1);
+            } else {
+                favorites.push(name);
+            }
+            localStorage.setItem('starredStrains', JSON.stringify(favorites));
+            if (showingFavorites) {
+                renderStrains(strains.filter(s => favorites.includes(s.name)));
+            } else {
+                renderStrains();
+            }
+        }
+
         function filterStrains() {
             const input = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = strains.filter(s => s.name.toLowerCase().includes(input));
+            const base = showingFavorites ? strains.filter(s => favorites.includes(s.name)) : strains;
+            const filtered = base.filter(s => s.name.toLowerCase().includes(input));
             renderStrains(filtered);
         }
 
@@ -381,6 +411,18 @@
             localStorage.setItem('strainsTimestamp', Date.now().toString());
             renderStrains();
             showToast('Strain added!');
+        });
+
+        document.getElementById('favoritesTab').addEventListener('click', function(e) {
+            e.preventDefault();
+            showingFavorites = true;
+            renderStrains(strains.filter(s => favorites.includes(s.name)));
+        });
+
+        document.getElementById('homeTab').addEventListener('click', function(e) {
+            e.preventDefault();
+            showingFavorites = false;
+            renderStrains();
         });
 
         window.onload = function() {
