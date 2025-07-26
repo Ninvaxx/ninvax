@@ -12,6 +12,14 @@ export default function App({ Component, pageProps }) {
           crossOrigin=""
         />
       </Head>
+      {process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
+        <Script
+          id="adsense-script"
+          strategy="afterInteractive"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
+          crossOrigin="anonymous"
+        />
+      )}
       <Script
         src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-oE8A2s36NVRWTVD2p4sxF1nQ37knKKSY9yDPZU9HgGU="
