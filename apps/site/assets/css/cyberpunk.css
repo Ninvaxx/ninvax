@@ -180,34 +180,20 @@ body::before {
     margin: 2em 0;
 }
 
-.openai-logo,
-.anthropic-logo,
-.gemini-logo,
-.cohere-logo,
-.mlh-sticker,
-.ninvax-logo {
-    width: 32px;
-    height: 32px;
-}
 
 .openai-logo {
+    width: 32px;
+    height: 32px;
     animation: spin 6s linear infinite;
 }
 
-.chatgpt-badge,
-.anthropic-badge,
-.gemini-badge,
-.cohere-badge {
+.chatgpt-badge {
     padding: 4px 8px;
     border-radius: 6px;
     font-size: 0.9em;
     color: #000;
     background: #fff;
 }
-
-.anthropic-badge { background: #f5f0e6; }
-.gemini-badge { background: #ffce00; }
-.cohere-badge  { background: #6500ea; color: #fff; }
 
 @keyframes spin {
     from { transform: rotate(0deg); }
