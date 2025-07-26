@@ -7,7 +7,9 @@ This repository hosts all projects that make up the Ninvax platform. Runtime app
 | Path | Description | How to Run |
 |------|-------------|------------|
 | [`apps/ios`](apps/ios) | Swift iOS application | Open `NinvaxApp.xcodeproj` in Xcode |
+| [`apps/android`](apps/android) | Kotlin Android application | Open in Android Studio |
 | [`apps/web`](apps/web) | Next.js frontend | `npm install && npm run dev` |
+| [`apps/react-native`](apps/react-native) | React Native mobile app | `npm install && npm start` |
 | [`apps/backend`](apps/backend) | FastAPI backend (`ninvax`) and legacy Express server | `uvicorn ninvax.app.api:app` or `cd express && npm start` |
 | [`apps/bot`](apps/bot) | Python AI bot utilities | `pip install -r requirements.txt && python bootstrap.py` |
 | [`apps/site`](apps/site) | Static landing site and contact form | `node assets/js/server.js` or open `index.html` |
