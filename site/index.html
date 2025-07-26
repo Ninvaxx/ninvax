@@ -30,6 +30,10 @@
             color: #FF00FF;
             margin: 0 10px;
             text-decoration: none;
+            outline-offset: 2px;
+        }
+        .nav a:focus {
+            outline: 2px solid #fff;
         }
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 5px #800080; }
@@ -54,6 +58,10 @@
             padding: 10px;
             margin: 10px 0;
             color: #FFFFFF;
+            outline-offset: 2px;
+        }
+        .strain-card:focus {
+            outline: 2px solid #ff00ff;
         }
         .order-btn {
             background-color: #FF00FF;
@@ -62,6 +70,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            outline-offset: 2px;
+        }
+        .order-btn:focus {
+            outline: 2px solid #fff;
         }
         .store-form {
             padding: 10px;
@@ -84,6 +96,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            outline-offset: 2px;
+        }
+        .submit-btn:focus {
+            outline: 2px solid #fff;
         }
         footer {
             text-align: center;
@@ -127,13 +143,22 @@
         </nav>
     </div>
     <main>
-        <input type="text" class="search-bar" placeholder="Search strains..." id="searchInput" onkeyup="filterStrains()">
+        <input type="text" class="search-bar" placeholder="Search strains..." aria-label="Search strains" id="searchInput" onkeyup="filterStrains()">
         <div class="strain-list" id="strainList"></div>
 
         <form id="storeForm" class="store-form">
-            <input type="text" id="name" placeholder="Strain name" required>
-            <input type="number" id="price" placeholder="Price" step="0.01" required>
-            <input type="text" id="store" placeholder="Store name" required>
+            <label>
+                Strain name
+                <input type="text" id="name" placeholder="Strain name" aria-label="Strain name" required>
+            </label>
+            <label>
+                Price
+                <input type="number" id="price" placeholder="Price" step="0.01" aria-label="Price" required>
+            </label>
+            <label>
+                Store name
+                <input type="text" id="store" placeholder="Store name" aria-label="Store name" required>
+            </label>
             <button type="submit" class="submit-btn">Add Strain</button>
         </form>
     </main>
@@ -173,6 +198,7 @@
             data.forEach((strain) => {
                 const card = document.createElement('div');
                 card.className = 'strain-card';
+                card.tabIndex = 0;
                 card.innerHTML = `<h3>${strain.name}</h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
                 list.appendChild(card);
             });

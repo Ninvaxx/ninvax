@@ -27,6 +27,14 @@ nav a:hover {
     text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff007a;
     animation: glitch-hover 0.2s alternate 2;
 }
+nav a:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+button:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
 
 .hero {
     text-align: center;
@@ -61,6 +69,10 @@ nav a:hover {
     box-shadow: 0 0 20px #ff007a;
     transform: scale(1.05);
     animation: glitch-hover 0.2s alternate 2;
+}
+.neon-button:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
 }
 
 .container {
