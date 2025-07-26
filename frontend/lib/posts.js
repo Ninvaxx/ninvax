@@ -1,7 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-const postsDir = path.join(process.cwd(), 'frontend', 'posts');
+// When Next.js runs in production the current working directory already points
+// to the `frontend` folder. Joining another `frontend` segment results in the
+// wrong path `frontend/frontend/posts` which causes `next build` to fail. Use
+// the `posts` directory relative to cwd instead.
+const postsDir = path.join(process.cwd(), 'posts');
 
 export function getAllPosts() {
   const files = fs.readdirSync(postsDir);
