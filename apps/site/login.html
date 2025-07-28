@@ -1,71 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Ninvax</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/cyberpunk.css">
-  <style>
-    form {
-      max-width: 300px;
-      margin: 40px auto;
-      text-align: center;
-    }
-    input {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-    }
-    button {
-      padding: 10px 20px;
-    }
-    #error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="create_account.html">Create Account</a>
-    <a href="signup.html">Beta Signup</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="projects.html">Projects</a>
-    <a href="blog.html">Blog</a>
-    <a href="resume.html">Resume</a>
-    <a href="login.html" id="loginLink">Login</a>
-    <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
-    <a href="#" id="logoutLink" style="display:none;">Logout</a>
-  </nav>
-  <form id="loginForm">
-    <label>
-      Username
-      <input type="text" id="username" placeholder="Username" aria-label="Username" required>
-    </label>
-    <label>
-      Password
-      <input type="password" id="password" placeholder="Password" aria-label="Password" required>
-    </label>
-    <button type="submit">Login</button>
-    <div id="error"></div>
-  </form>
-
-  <script src="assets/js/auth.js"></script>
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const u = document.getElementById('username').value.trim();
-      const p = document.getElementById('password').value;
-      if (u === 'ninvax' && p === 'ninvaxxx') {
-        localStorage.setItem('isAdmin', 'true');
-        window.location.href = 'index.html';
-      } else {
-        document.getElementById('error').textContent = 'Invalid credentials';
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Ninvax</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/cyberpunk.css" />
+    <style>
+      form {
+        max-width: 300px;
+        margin: 40px auto;
+        text-align: center;
       }
-    });
-  </script>
-</body>
+      input {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+      }
+      button {
+        padding: 10px 20px;
+      }
+      #error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="create_account.html">Create Account</a>
+      <a href="signup.html">Beta Signup</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="resume.html">Resume</a>
+      <a href="login.html" id="loginLink">Login</a>
+      <a href="admin.html" id="adminLink" style="display: none">Admin</a>
+      <a href="#" id="favoritesTab">Favorites</a>
+      <a href="#" id="logoutLink" style="display: none">Logout</a>
+    </nav>
+    <form id="loginForm">
+      <label>
+        Username
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          aria-label="Username"
+          required
+        />
+      </label>
+      <label>
+        Password
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          aria-label="Password"
+          required
+        />
+      </label>
+      <button type="submit">Login</button>
+      <div id="error"></div>
+    </form>
+
+    <script src="assets/js/auth.js"></script>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const u = document.getElementById("username").value.trim();
+          const p = document.getElementById("password").value;
+          if (u === "ninvax" && p === "ninvaxxx") {
+            localStorage.setItem("isAdmin", "true");
+            window.location.href = "index.html";
+          } else {
+            document.getElementById("error").textContent =
+              "Invalid credentials";
+          }
+        });
+    </script>
+  </body>
 </html>
