@@ -1,434 +1,461 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ninvax</title>
     <style>
-        body {
-            background-color: #000000;
-            color: #FF00FF;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+      body {
+        background-color: #000000;
+        color: #ff00ff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .header {
+        background-color: #000000;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 2px solid #800080;
+        animation: pulse 3s infinite;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .nav {
+        margin-top: 10px;
+      }
+      .nav a {
+        color: #ff00ff;
+        margin: 0 10px;
+        text-decoration: none;
+        outline-offset: 2px;
+      }
+      .nav a:focus {
+        outline: 2px solid #fff;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 5px #800080;
         }
-        main {
-            max-width: 800px;
-            margin: 0 auto;
+        50% {
+          box-shadow: 0 0 15px #ff00ff;
         }
-        .header {
-            background-color: #000000;
-            padding: 10px;
-            text-align: center;
-            border-bottom: 2px solid #800080;
-            animation: pulse 3s infinite;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .nav {
-            margin-top: 10px;
-        }
-        .nav a {
-            color: #FF00FF;
-            margin: 0 10px;
-            text-decoration: none;
-            outline-offset: 2px;
-        }
-        .nav a:focus {
-            outline: 2px solid #fff;
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 5px #800080; }
-            50% { box-shadow: 0 0 15px #ff00ff; }
-        }
-        .search-bar {
-            padding: 10px;
-            margin: 10px;
-            width: 80%;
-            border-radius: 5px;
-            border: 1px solid #800080;
-            background-color: #000000;
-            color: #FF00FF;
-            position: sticky;
+      }
+      .search-bar {
+        padding: 10px;
+        margin: 10px;
+        width: 80%;
+        border-radius: 5px;
+        border: 1px solid #800080;
+        background-color: #000000;
+        color: #ff00ff;
+        position: sticky;
 
-            top: var(--header-height);
+        top: var(--header-height);
 
-            top: calc(var(--header-height) + 10px); /* Dynamically position the search bar */
+        top: calc(
+          var(--header-height) + 10px
+        ); /* Dynamically position the search bar */
 
-            z-index: 999;
+        z-index: 999;
+      }
+      .strain-list {
+        padding: 10px;
+      }
+      .strain-card {
+        background-color: #000000;
+        border: 2px solid #800080;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+        color: #ffffff;
+        outline-offset: 2px;
+      }
+      .strain-card:focus {
+        outline: 2px solid #ff00ff;
+      }
+      .star {
+        cursor: pointer;
+        color: #ffd700;
+        margin-left: 5px;
+      }
+      .order-btn {
+        background-color: #ff00ff;
+        color: #000000;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        outline-offset: 2px;
+      }
+      .order-btn:focus {
+        outline: 2px solid #fff;
+      }
+      .store-form {
+        padding: 10px;
+        border: 2px solid #800080;
+        margin: 20px;
+      }
+      .store-form input {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin: 5px 0;
+        background-color: #000000;
+        border: 1px solid #800080;
+        color: #ff00ff;
+        border-radius: 5px;
+      }
+      .error {
+        color: #ff4d4d;
+        font-size: 0.9em;
+        display: none;
+        margin: 4px 0;
+      }
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 4px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .toast.show {
+        opacity: 1;
+      }
+      .submit-btn {
+        background-color: #ff00ff;
+        color: #000000;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        outline-offset: 2px;
+      }
+      .submit-btn:focus {
+        outline: 2px solid #fff;
+      }
+      .error {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 4px;
+      }
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #4caf50;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+      }
+      footer {
+        text-align: center;
+        padding: 10px;
+        color: #800080;
+      }
+      .ai-credit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin: 20px 0;
+      }
+      .openai-logo {
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
+        animation: spin 6s linear infinite;
+      }
+      .chatgpt-badge {
+        background: #fff;
+        color: #000;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.9em;
+      }
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
         }
-        .strain-list {
-            padding: 10px;
+        to {
+          transform: rotate(360deg);
         }
-        .strain-card {
-            background-color: #000000;
-            border: 2px solid #800080;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-            color: #FFFFFF;
-            outline-offset: 2px;
-        }
-        .strain-card:focus {
-            outline: 2px solid #ff00ff;
-        }
-        .star {
-            cursor: pointer;
-            color: #FFD700;
-            margin-left: 5px;
-        }
-        .order-btn {
-            background-color: #FF00FF;
-            color: #000000;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            outline-offset: 2px;
-        }
-        .order-btn:focus {
-            outline: 2px solid #fff;
-        }
-        .store-form {
-            padding: 10px;
-            border: 2px solid #800080;
-            margin: 20px;
-        }
-        .store-form input {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #000000;
-            border: 1px solid #800080;
-            color: #FF00FF;
-            border-radius: 5px;
-        }
-        .error {
-            color: #ff4d4d;
-            font-size: 0.9em;
-            display: none;
-            margin: 4px 0;
-        }
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #4caf50;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 4px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .toast.show {
-            opacity: 1;
-        }
-        .submit-btn {
-            background-color: #FF00FF;
-            color: #000000;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            outline-offset: 2px;
-        }
-        .submit-btn:focus {
-            outline: 2px solid #fff;
-        }
-        .error {
-            color: red;
-            font-size: 0.9em;
-            margin-top: 4px;
-        }
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #4caf50;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-        }
-        footer {
-            text-align: center;
-            padding: 10px;
-            color: #800080;
-        }
-        .ai-credit {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        .openai-logo {
-            width: 32px;
-            height: 32px;
-            vertical-align: middle;
-            animation: spin 6s linear infinite;
-        }
-        .chatgpt-badge {
-            background: #fff;
-            color: #000;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.9em;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <h1>Ninvax Marketplace</h1>
-        <nav class="nav">
-            <a href="index.html" id="homeTab">Home</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="create_account.html">Create Account</a>
-            <a href="signup.html">Beta Signup</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="projects.html">Projects</a>
-            <a href="blog.html">Blog</a>
-            <a href="resume.html">Resume</a>
-            <a href="login.html" id="loginLink">Login</a>
-            <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
-            <a href="#" id="favoritesTab">Favorites</a>
-            <a href="#" id="logoutLink" style="display:none;">Logout</a>
-        </nav>
+      <h1>Ninvax Marketplace</h1>
+      <nav class="nav">
+        <a href="index.html" id="homeTab">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="create_account.html">Create Account</a>
+        <a href="signup.html">Beta Signup</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="resume.html">Resume</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="admin.html" id="adminLink" style="display: none">Admin</a>
+        <a href="#" id="favoritesTab">Favorites</a>
+        <a href="#" id="logoutLink" style="display: none">Logout</a>
+      </nav>
     </div>
     <main>
+      <input
+        type="text"
+        class="search-bar"
+        placeholder="Search strains..."
+        aria-label="Search strains"
+        id="searchInput"
+        onkeyup="filterStrains()"
+      />
+      <div class="strain-list" id="strainList"></div>
 
-        <input type="text" class="search-bar" placeholder="Search strains..." aria-label="Search strains" id="searchInput" onkeyup="filterStrains()">
-        <div class="strain-list" id="strainList"></div>
-
-        <form id="storeForm" class="store-form">
-            <input type="text" id="name" placeholder="Strain name" required>
-            <input type="number" id="price" placeholder="Price" step="0.01" required>
-            <div id="priceError" class="error"></div>
-            <input type="text" id="store" placeholder="Store name" required>
-            <button type="submit" class="submit-btn">Add Strain</button>
-        </form>
+      <form id="storeForm" class="store-form">
+        <input type="text" id="name" placeholder="Strain name" required />
+        <input
+          type="number"
+          id="price"
+          placeholder="Price"
+          step="0.01"
+          required
+        />
+        <div id="priceError" class="error"></div>
+        <input type="text" id="store" placeholder="Store name" required />
+        <button type="submit" class="submit-btn">Add Strain</button>
+      </form>
     </main>
 
-  <script>
-        function debounce(func, delay) {
-            let timeoutId;
-            return function(...args) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => func.apply(this, args), delay);
-            };
-        }
-        let strains = [
-            { name: 'Cheetah Piss', price: 75.00, store: 'Rochelle Park-Rec' },
-            { name: 'Melted Sherb', price: 75.00, store: 'Rochelle Park-Rec' }
-        ];
+    <script>
+      function debounce(func, delay) {
+          let timeoutId;
+          return function(...args) {
+              clearTimeout(timeoutId);
+              timeoutId = setTimeout(() => func.apply(this, args), delay);
+          };
+      }
+      let strains = [
+          { name: 'Cheetah Piss', price: 75.00, store: 'Rochelle Park-Rec' },
+          { name: 'Melted Sherb', price: 75.00, store: 'Rochelle Park-Rec' }
+      ];
 
-        let favorites = JSON.parse(localStorage.getItem('starredStrains') || '[]');
-        let showingFavorites = false;
+      let favorites = JSON.parse(localStorage.getItem('starredStrains') || '[]');
+      let showingFavorites = false;
 
-        async function loadStrains() {
-            const cached = localStorage.getItem('strainsData');
-            const timestamp = localStorage.getItem('strainsTimestamp');
-            const now = Date.now();
-            if (cached && timestamp && now - parseInt(timestamp, 10) < 24 * 60 * 60 * 1000) {
-                strains = JSON.parse(cached);
-                renderStrains();
-                return;
-            }
-            try {
-                const res = await fetch('strains.json');
-                if (res.ok) {
-                    const data = await res.json();
-                    strains = data;
-                    localStorage.setItem('strainsData', JSON.stringify(strains));
-                    localStorage.setItem('strainsTimestamp', now.toString());
-                }
-            } catch (e) {
-                console.error('Failed to fetch strains', e);
-            }
-            renderStrains();
-        }
+      async function loadStrains() {
+          const cached = localStorage.getItem('strainsData');
+          const timestamp = localStorage.getItem('strainsTimestamp');
+          const now = Date.now();
+          if (cached && timestamp && now - parseInt(timestamp, 10) < 24 * 60 * 60 * 1000) {
+              strains = JSON.parse(cached);
+              renderStrains();
+              return;
+          }
+          try {
+              const res = await fetch('strains.json');
+              if (res.ok) {
+                  const data = await res.json();
+                  strains = data;
+                  localStorage.setItem('strainsData', JSON.stringify(strains));
+                  localStorage.setItem('strainsTimestamp', now.toString());
+              }
+          } catch (e) {
+              console.error('Failed to fetch strains', e);
+          }
+          renderStrains();
+      }
 
-        function renderStrains(data = strains) {
-            const list = document.getElementById('strainList');
-            list.innerHTML = '';
-            data.forEach((strain) => {
-                const card = document.createElement('div');
-                card.className = 'strain-card';
+      function renderStrains(data = strains) {
+          const list = document.getElementById('strainList');
+          list.innerHTML = '';
+          data.forEach((strain) => {
+              const card = document.createElement('div');
+              card.className = 'strain-card';
 
-                const starred = favorites.includes(strain.name) ? '★' : '☆';
-                card.innerHTML = `<h3>${strain.name} <span class="star" onclick="toggleFavorite('${strain.name}')">${starred}</span></h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
+              const starred = favorites.includes(strain.name) ? '★' : '☆';
+              card.innerHTML = `<h3>${strain.name} <span class="star" onclick="toggleFavorite('${strain.name}')">${starred}</span></h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
 
-                card.tabIndex = 0;
-                card.innerHTML = `<h3>${strain.name}</h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
+              card.tabIndex = 0;
+              card.innerHTML = `<h3>${strain.name}</h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
 
-                list.appendChild(card);
-            });
-        }
+              list.appendChild(card);
+          });
+      }
 
-        function toggleFavorite(name) {
-            const idx = favorites.indexOf(name);
-            if (idx > -1) {
-                favorites.splice(idx, 1);
-            } else {
-                favorites.push(name);
-            }
-            localStorage.setItem('starredStrains', JSON.stringify(favorites));
-            if (showingFavorites) {
-                renderStrains(strains.filter(s => favorites.includes(s.name)));
-            } else {
-                renderStrains();
-            }
-        }
+      function toggleFavorite(name) {
+          const idx = favorites.indexOf(name);
+          if (idx > -1) {
+              favorites.splice(idx, 1);
+          } else {
+              favorites.push(name);
+          }
+          localStorage.setItem('starredStrains', JSON.stringify(favorites));
+          if (showingFavorites) {
+              renderStrains(strains.filter(s => favorites.includes(s.name)));
+          } else {
+              renderStrains();
+          }
+      }
 
-        function filterStrains() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const base = showingFavorites ? strains.filter(s => favorites.includes(s.name)) : strains;
-            const filtered = base.filter(s => s.name.toLowerCase().includes(input));
-            renderStrains(filtered);
-        }
-
-
-        function showToast(msg, isError = false) {
-            const toast = document.getElementById('toast');
-            if (!toast) {
-                console.error('Toast element not found in the DOM.');
-                return;
-            }
-            toast.textContent = msg;
-            toast.style.background = isError ? '#d33' : '#4caf50';
-            toast.style.opacity = '1';
-            setTimeout(() => {
-                toast.style.opacity = '0';
-            }, 2000);
-        }
-
-        document.getElementById('price').addEventListener('input', function() {
-            this.value = this.value.match(/^\d*\.?\d*$/) ? this.value : this.value.slice(0, -1);
-        });
-
-        const priceInput = document.getElementById('price');
-        priceInput.addEventListener('input', function() {
-            this.value = this.value.replace(/[^0-9.]/g, '');
-        });
-
-        function showToast(message, isError = false) {
-            const toast = document.getElementById('toast');
-
-            if (!toast) {
-                console.warn('Toast element not found in the DOM.');
-                return;
-            }
-
-            toast.textContent = message;
-            toast.style.backgroundColor = isError ? '#c0392b' : '#4caf50';
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
+      function filterStrains() {
+          const input = document.getElementById('searchInput').value.toLowerCase();
+          const base = showingFavorites ? strains.filter(s => favorites.includes(s.name)) : strains;
+          const filtered = base.filter(s => s.name.toLowerCase().includes(input));
+          renderStrains(filtered);
+      }
 
 
-        document.getElementById('storeForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value.trim();
+      function showToast(msg, isError = false) {
+          const toast = document.getElementById('toast');
+          if (!toast) {
+              console.error('Toast element not found in the DOM.');
+              return;
+          }
+          toast.textContent = msg;
+          toast.style.background = isError ? '#d33' : '#4caf50';
+          toast.style.opacity = '1';
+          setTimeout(() => {
+              toast.style.opacity = '0';
+          }, 2000);
+      }
 
-            const priceInput = document.getElementById('price');
-            const price = parseFloat(priceInput.value);
-            const store = document.getElementById('store').value.trim();
-            const priceError = document.getElementById('priceError');
-            const isInvalidPrice = isNaN(price) || price <= 0;
-            if (!name || !store || isInvalidPrice) {
-                if (isInvalidPrice) {
-                    priceError.textContent = 'Price must be > 0';
-                }
-                showToast('Failed to add strain', true);
-                return;
-            }
-            priceError.textContent = '';
+      document.getElementById('price').addEventListener('input', function() {
+          this.value = this.value.match(/^\d*\.?\d*$/) ? this.value : this.value.slice(0, -1);
+      });
 
-            const priceEl = document.getElementById('price');
-            const price = parseFloat(priceEl.value);
-            const store = document.getElementById('store').value.trim();
-            const errorEl = document.getElementById('priceError');
+      const priceInput = document.getElementById('price');
+      priceInput.addEventListener('input', function() {
+          this.value = this.value.replace(/[^0-9.]/g, '');
+      });
 
-            if (!name || !store || isNaN(price) || price <= 0) {
-                if (isNaN(price) || price <= 0) {
-                    errorEl.style.display = 'block';
+      function showToast(message, isError = false) {
+          const toast = document.getElementById('toast');
 
-                    showToast('Price must be > 0', true);
-                } else {
-                    errorEl.style.display = 'none';
-                    if (!name) {
-                        showToast('Name is required', true);
-                    } else if (!store) {
-                        showToast('Store is required', true);
-                    }
-                }
+          if (!toast) {
+              console.warn('Toast element not found in the DOM.');
+              return;
+          }
 
-                } else {
-                    errorEl.style.display = 'none';
-                }
-                showToast('Price must be > 0', true);
-
-                return;
-            }
-            errorEl.style.display = 'none';
+          toast.textContent = message;
+          toast.style.backgroundColor = isError ? '#c0392b' : '#4caf50';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 3000);
+      }
 
 
-            const existing = strains.find(s => s.name.toLowerCase() === name.toLowerCase());
-            if (existing) {
-                existing.price = price;
-                existing.store = store;
-            } else {
-                strains.push({ name, price, store });
-            }
-            this.reset();
-            localStorage.setItem('strainsData', JSON.stringify(strains));
-            localStorage.setItem('strainsTimestamp', Date.now().toString());
-            renderStrains();
-            showToast('Strain added!');
-        });
+      document.getElementById('storeForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          const name = document.getElementById('name').value.trim();
 
-        document.getElementById('favoritesTab').addEventListener('click', function(e) {
-            e.preventDefault();
-            showingFavorites = true;
-            renderStrains(strains.filter(s => favorites.includes(s.name)));
-        });
+          const priceInput = document.getElementById('price');
+          const price = parseFloat(priceInput.value);
+          const store = document.getElementById('store').value.trim();
+          const priceError = document.getElementById('priceError');
+          const isInvalidPrice = isNaN(price) || price <= 0;
+          if (!name || !store || isInvalidPrice) {
+              if (isInvalidPrice) {
+                  priceError.textContent = 'Price must be > 0';
+              }
+              showToast('Failed to add strain', true);
+              return;
+          }
+          priceError.textContent = '';
 
-        document.getElementById('homeTab').addEventListener('click', function(e) {
-            e.preventDefault();
-            showingFavorites = false;
-            renderStrains();
-        });
+          const priceEl = document.getElementById('price');
+          const price = parseFloat(priceEl.value);
+          const store = document.getElementById('store').value.trim();
+          const errorEl = document.getElementById('priceError');
 
-        window.onload = function() {
-            loadStrains();
-            setInterval(loadStrains, 24 * 60 * 60 * 1000);
-            const searchInput = document.getElementById('searchInput');
-            const debouncedFilter = debounce(filterStrains, 300);
-            searchInput.addEventListener('input', debouncedFilter);
-        };
+          if (!name || !store || isNaN(price) || price <= 0) {
+              if (isNaN(price) || price <= 0) {
+                  errorEl.style.display = 'block';
+
+                  showToast('Price must be > 0', true);
+              } else {
+                  errorEl.style.display = 'none';
+                  if (!name) {
+                      showToast('Name is required', true);
+                  } else if (!store) {
+                      showToast('Store is required', true);
+                  }
+              }
+
+              } else {
+                  errorEl.style.display = 'none';
+              }
+              showToast('Price must be > 0', true);
+
+              return;
+          }
+          errorEl.style.display = 'none';
+
+
+          const existing = strains.find(s => s.name.toLowerCase() === name.toLowerCase());
+          if (existing) {
+              existing.price = price;
+              existing.store = store;
+          } else {
+              strains.push({ name, price, store });
+          }
+          this.reset();
+          localStorage.setItem('strainsData', JSON.stringify(strains));
+          localStorage.setItem('strainsTimestamp', Date.now().toString());
+          renderStrains();
+          showToast('Strain added!');
+      });
+
+      document.getElementById('favoritesTab').addEventListener('click', function(e) {
+          e.preventDefault();
+          showingFavorites = true;
+          renderStrains(strains.filter(s => favorites.includes(s.name)));
+      });
+
+      document.getElementById('homeTab').addEventListener('click', function(e) {
+          e.preventDefault();
+          showingFavorites = false;
+          renderStrains();
+      });
+
+      window.onload = function() {
+          loadStrains();
+          setInterval(loadStrains, 24 * 60 * 60 * 1000);
+          const searchInput = document.getElementById('searchInput');
+          const debouncedFilter = debounce(filterStrains, 300);
+          searchInput.addEventListener('input', debouncedFilter);
+      };
     </script>
     <script src="assets/js/auth.js"></script>
     <footer>© 2025 Ninvax</footer>
     <div class="ai-credit">
-    <img src="images/openai-logo.svg" alt="OpenAI" class="openai-logo">
-    <span class="chatgpt-badge">ChatGPT</span>
-    <img src="images/anthropic-logo.svg" alt="Anthropic" class="anthropic-logo">
-    <span class="anthropic-badge">Claude</span>
-    <img src="images/gemini-logo.svg" alt="Gemini" class="gemini-logo">
-    <span class="gemini-badge">Gemini</span>
-    <img src="images/cohere-logo.svg" alt="Cohere" class="cohere-logo">
-    <span class="cohere-badge">Cohere</span>
-    <img src="images/mlh-sticker.svg" alt="MLH" class="mlh-sticker">
-    <img src="images/logo.svg" alt="Ninvax" class="ninvax-logo">
-  </div>
+      <img src="images/openai-logo.svg" alt="OpenAI" class="openai-logo" />
+      <span class="chatgpt-badge">ChatGPT</span>
+      <img
+        src="images/anthropic-logo.svg"
+        alt="Anthropic"
+        class="anthropic-logo"
+      />
+      <span class="anthropic-badge">Claude</span>
+      <img src="images/gemini-logo.svg" alt="Gemini" class="gemini-logo" />
+      <span class="gemini-badge">Gemini</span>
+      <img src="images/cohere-logo.svg" alt="Cohere" class="cohere-logo" />
+      <span class="cohere-badge">Cohere</span>
+      <img src="images/mlh-sticker.svg" alt="MLH" class="mlh-sticker" />
+      <img src="images/logo.svg" alt="Ninvax" class="ninvax-logo" />
+    </div>
     <div id="toast" class="toast"></div>
-</body>
+  </body>
 </html>

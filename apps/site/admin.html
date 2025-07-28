@@ -1,28 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Ninvax</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/cyberpunk.css">
-</head>
-<body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="create_account.html">Create Account</a>
-    <a href="login.html" id="loginLink">Login</a>
-    <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
-    <a href="#" id="logoutLink" style="display:none;">Logout</a>
-  </nav>
-  <h1 style="text-align:center; margin-top:40px;">Admin Controls</h1>
-  <p style="text-align:center;">Only visible to admins.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Ninvax</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/cyberpunk.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="create_account.html">Create Account</a>
+      <a href="signup.html">Beta Signup</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="resume.html">Resume</a>
+      <a href="login.html" id="loginLink">Login</a>
+      <a href="admin.html" id="adminLink" style="display: none">Admin</a>
+      <a href="#" id="favoritesTab">Favorites</a>
+      <a href="#" id="logoutLink" style="display: none">Logout</a>
+    </nav>
+    <h1 style="text-align: center; margin-top: 40px">Admin Controls</h1>
+    <p style="text-align: center">Only visible to admins.</p>
 
-  <script src="assets/js/auth.js"></script>
-  <script>
-    if (localStorage.getItem('isAdmin') !== 'true') {
-      window.location.href = 'login.html';
-    }
-  </script>
-</body>
+    <script src="assets/js/auth.js"></script>
+    <script>
+      if (localStorage.getItem("isAdmin") !== "true") {
+        window.location.href = "login.html";
+      }
+    </script>
+  </body>
 </html>

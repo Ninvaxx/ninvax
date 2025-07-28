@@ -1,61 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - Ninvax</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/cyberpunk.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-</head>
-<body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="create_account.html">Create Account</a>
-    <a href="signup.html">Beta Signup</a>
-    <a href="login.html" id="loginLink">Login</a>
-    <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
-    <a href="#" id="logoutLink" style="display:none;">Logout</a>
-  </nav>
-  <div class="container">
-    <div class="saturn-ring-animation" style="display:block;"></div>
-    <h1 class="glitch">Contact Us</h1>
-    <form onsubmit="handleContact(event, '/contact')">
-      <label>
-        Name
-        <input type="text" name="name" placeholder="Name" aria-label="Name" required>
-      </label>
-      <label>
-        Email
-        <input type="email" name="email" placeholder="Email" aria-label="Email" required>
-      </label>
-      <label>
-        Message
-        <textarea name="message" placeholder="Message" aria-label="Message" required></textarea>
-      </label>
-      <button type="submit" class="neon-button">Send</button>
-    </form>
-    <div id="confirmation" style="display:none;">Thanks for reaching out!</div>
-  </div>
-  <footer>
-    <p>Ninvax 🪐 2025</p>
-  </footer>
-  <div class="ai-credit">
-    <img src="images/openai-logo.svg" alt="OpenAI" class="openai-logo">
-    <span class="chatgpt-badge">ChatGPT</span>
-    <img src="images/anthropic-logo.svg" alt="Anthropic" class="anthropic-logo">
-    <span class="anthropic-badge">Claude</span>
-    <img src="images/gemini-logo.svg" alt="Gemini" class="gemini-logo">
-    <span class="gemini-badge">Gemini</span>
-    <img src="images/cohere-logo.svg" alt="Cohere" class="cohere-logo">
-    <span class="cohere-badge">Cohere</span>
-    <img src="images/mlh-sticker.svg" alt="MLH" class="mlh-sticker">
-    <img src="images/logo.svg" alt="Ninvax" class="ninvax-logo">
-  </div>
-  <script src="assets/js/animations.js"></script>
-  <script src="assets/js/cyberpunk.js"></script>
-  <script src="assets/js/auth.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact - Ninvax</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/cyberpunk.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="create_account.html">Create Account</a>
+      <a href="signup.html">Beta Signup</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="resume.html">Resume</a>
+      <a href="login.html" id="loginLink">Login</a>
+      <a href="admin.html" id="adminLink" style="display: none">Admin</a>
+      <a href="#" id="favoritesTab">Favorites</a>
+      <a href="#" id="logoutLink" style="display: none">Logout</a>
+    </nav>
+    <div class="container">
+      <div class="saturn-ring-animation" style="display: block"></div>
+      <h1 class="glitch">Contact Us</h1>
+      <form onsubmit="handleContact(event, '/contact')">
+        <label>
+          Name
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            aria-label="Name"
+            required
+          />
+        </label>
+        <label>
+          Email
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            aria-label="Email"
+            required
+          />
+        </label>
+        <label>
+          Message
+          <textarea
+            name="message"
+            placeholder="Message"
+            aria-label="Message"
+            required
+          ></textarea>
+        </label>
+        <button type="submit" class="neon-button">Send</button>
+      </form>
+      <div id="confirmation" style="display: none">
+        Thanks for reaching out!
+      </div>
+    </div>
+    <footer>
+      <p>Ninvax 🪐 2025</p>
+    </footer>
+    <div class="ai-credit">
+      <img src="images/openai-logo.svg" alt="OpenAI" class="openai-logo" />
+      <span class="chatgpt-badge">ChatGPT</span>
+      <img
+        src="images/anthropic-logo.svg"
+        alt="Anthropic"
+        class="anthropic-logo"
+      />
+      <span class="anthropic-badge">Claude</span>
+      <img src="images/gemini-logo.svg" alt="Gemini" class="gemini-logo" />
+      <span class="gemini-badge">Gemini</span>
+      <img src="images/cohere-logo.svg" alt="Cohere" class="cohere-logo" />
+      <span class="cohere-badge">Cohere</span>
+      <img src="images/mlh-sticker.svg" alt="MLH" class="mlh-sticker" />
+      <img src="images/logo.svg" alt="Ninvax" class="ninvax-logo" />
+    </div>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/cyberpunk.js"></script>
+    <script src="assets/js/auth.js"></script>
+  </body>
 </html>
