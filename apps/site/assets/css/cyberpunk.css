@@ -186,6 +186,7 @@ body::before {
 .cohere-logo,
 .mlh-sticker,
 .ninvax-logo {
+    animation: pulse-logo 3s ease-in-out infinite;
     width: 32px;
     height: 32px;
 }
@@ -212,4 +213,10 @@ body::before {
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-logo {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
