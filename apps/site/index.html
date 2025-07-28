@@ -14,6 +14,7 @@
         padding: 0;
       }
       .intro-banner {
+        animation: slideDown 1s ease-out;
         background-color: #ff00ff;
         color: #000;
         text-align: center;
@@ -196,17 +197,18 @@
         font-size: 0.9em;
       }
       @keyframes spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes slideDown {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
       }
     </style>
   </head>
   <body>
-    <div class="intro-banner">C͜͡l͜͡o͜͡u͜͡D͜͡ ᑎIᑎᐯᗩ᙭🪐</div>
+    <div class="intro-banner">Ninvax 🪐 Reality Hackers Unite</div>
     <div class="header">
       <nav class="nav">
         <a href="index.html" id="homeTab">Home</a>
@@ -214,9 +216,7 @@
         <a href="contact.html">Contact</a>
         <a href="create_account.html">Create Account</a>
         <a href="signup.html">Beta Signup</a>
-        <a href="gallery.html">Gallery</a>
         <a href="projects.html">Projects</a>
-        <a href="blog.html">Blog</a>
         <a href="resume.html">Resume</a>
         <a href="login.html" id="loginLink">Login</a>
         <a href="admin.html" id="adminLink" style="display: none">Admin</a>

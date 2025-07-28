@@ -6,7 +6,6 @@ export default function Navbar() {
       <Link href="/" style={{ color: '#fff', fontWeight: 'bold', marginRight: '1rem' }}>
         Ninvax
       </Link>
-      <Link href="/blog" style={{ color: '#fff', marginRight: '1rem' }}>Blog</Link>
       <Link href="/products" style={{ color: '#fff', marginRight: '1rem' }}>Products</Link>
       <Link href="/contact" style={{ color: '#fff', marginRight: '1rem' }}>Contact</Link>
       <Link href="/favorites" style={{ color: '#fff', marginRight: '1rem' }}>Favorites</Link>
