@@ -225,6 +225,10 @@
       </nav>
     </div>
     <main>
+      <section style="text-align:center; margin-bottom:20px;">
+        <h1>Ninvax Empire</h1>
+        <p>The glitchy hub for reality hackers building a trillion‑dollar empire.</p>
+      </section>
       <input
         type="text"
         class="search-bar"
@@ -298,10 +302,7 @@
 
               const starred = favorites.includes(strain.name) ? '★' : '☆';
               card.innerHTML = `<h3>${strain.name} <span class="star" onclick="toggleFavorite('${strain.name}')">${starred}</span></h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
-
               card.tabIndex = 0;
-              card.innerHTML = `<h3>${strain.name}</h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
-
               list.appendChild(card);
           });
       }
@@ -328,20 +329,6 @@
           renderStrains(filtered);
       }
 
-
-      function showToast(msg, isError = false) {
-          const toast = document.getElementById('toast');
-          if (!toast) {
-              console.error('Toast element not found in the DOM.');
-              return;
-          }
-          toast.textContent = msg;
-          toast.style.background = isError ? '#d33' : '#4caf50';
-          toast.style.opacity = '1';
-          setTimeout(() => {
-              toast.style.opacity = '0';
-          }, 2000);
-      }
 
       document.getElementById('price').addEventListener('input', function() {
           this.value = this.value.match(/^\d*\.?\d*$/) ? this.value : this.value.slice(0, -1);
@@ -385,30 +372,10 @@
           }
           priceError.textContent = '';
 
-          const priceEl = document.getElementById('price');
-          const price = parseFloat(priceEl.value);
-          const store = document.getElementById('store').value.trim();
           const errorEl = document.getElementById('priceError');
-
-          if (!name || !store || isNaN(price) || price <= 0) {
-              if (isNaN(price) || price <= 0) {
-                  errorEl.style.display = 'block';
-
-                  showToast('Price must be > 0', true);
-              } else {
-                  errorEl.style.display = 'none';
-                  if (!name) {
-                      showToast('Name is required', true);
-                  } else if (!store) {
-                      showToast('Store is required', true);
-                  }
-              }
-
-              } else {
-                  errorEl.style.display = 'none';
-              }
+          if (isNaN(price) || price <= 0) {
+              errorEl.style.display = 'block';
               showToast('Price must be > 0', true);
-
               return;
           }
           errorEl.style.display = 'none';
