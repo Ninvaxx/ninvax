@@ -239,7 +239,7 @@
       />
       <div class="strain-list" id="strainList"></div>
 
-      <form id="storeForm" class="store-form">
+      <form id="storeForm" class="store-form" style="display:none;">
         <input type="text" id="name" placeholder="Strain name" required />
         <input
           type="number"
@@ -280,10 +280,9 @@
               return;
           }
           try {
-              const res = await fetch('strains.json');
+              const res = await fetch('/products');
               if (res.ok) {
-                  const data = await res.json();
-                  strains = data;
+                  strains = await res.json();
                   localStorage.setItem('strainsData', JSON.stringify(strains));
                   localStorage.setItem('strainsTimestamp', now.toString());
               }
@@ -354,7 +353,7 @@
       }
 
 
-      document.getElementById('storeForm').addEventListener('submit', function(e) {
+      document.getElementById('storeForm').addEventListener('submit', async function(e) {
           e.preventDefault();
           const name = document.getElementById('name').value.trim();
 
@@ -381,18 +380,18 @@
           errorEl.style.display = 'none';
 
 
-          const existing = strains.find(s => s.name.toLowerCase() === name.toLowerCase());
-          if (existing) {
-              existing.price = price;
-              existing.store = store;
+          const res = await fetch('/strains', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, price, store })
+          });
+          if (res.ok) {
+              loadStrains();
+              this.reset();
+              showToast('Strain added!');
           } else {
-              strains.push({ name, price, store });
+              showToast('Failed to add strain', true);
           }
-          this.reset();
-          localStorage.setItem('strainsData', JSON.stringify(strains));
-          localStorage.setItem('strainsTimestamp', Date.now().toString());
-          renderStrains();
-          showToast('Strain added!');
       });
 
       document.getElementById('favoritesTab').addEventListener('click', function(e) {
@@ -407,12 +406,17 @@
           renderStrains();
       });
 
-      window.onload = function() {
+      window.onload = async function() {
           loadStrains();
           setInterval(loadStrains, 24 * 60 * 60 * 1000);
           const searchInput = document.getElementById('searchInput');
           const debouncedFilter = debounce(filterStrains, 300);
           searchInput.addEventListener('input', debouncedFilter);
+
+          const res = await fetch('/current_user');
+          if (res.ok && await res.json()) {
+              document.getElementById('storeForm').style.display = 'block';
+          }
       };
     </script>
     <script src="assets/js/auth.js"></script>

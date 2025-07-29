@@ -1,11 +1,20 @@
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
 const Stripe = require('stripe');
+const session = require('express-session');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(express.json());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'change_me',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 // Initialize Supabase
 const supabase = createClient(process.env.SUPABASE_URL || '', process.env.SUPABASE_KEY || '');
@@ -18,10 +27,14 @@ const path = require('path');
 const events = require('events');
 
 const dataPath = path.join(__dirname, '..', '..', 'site', 'strains.json');
+const userPath = path.join(__dirname, 'users.json');
 const emitter = new events.EventEmitter();
 let cachedStrains = [];
 // Load data on startup
 loadStrains();
+loadUsers();
+
+let users = [];
 
 function loadStrains() {
   try {
@@ -34,10 +47,108 @@ function loadStrains() {
   }
 }
 
+function loadUsers() {
+  try {
+    const data = JSON.parse(fs.readFileSync(userPath, 'utf8'));
+    users = data;
+    return users;
+  } catch (err) {
+    console.error(err);
+    users = [];
+    return [];
+  }
+}
+
+function saveUsers() {
+  try {
+    fs.writeFileSync(userPath, JSON.stringify(users, null, 2));
+  } catch (err) {
+    console.error('Failed to save users', err);
+  }
+}
+
 // Watch file for changes and emit updates
 fs.watchFile(dataPath, { interval: 1000 }, () => {
   const data = loadStrains();
   emitter.emit('update', data);
+});
+
+function requireLogin(req, res, next) {
+  if (req.session.user) {
+    return next();
+  }
+  res.status(401).json({ error: 'Unauthorized' });
+}
+
+function requireAdmin(req, res, next) {
+  if (req.session.user && (req.session.user.isAdmin || req.session.user.isApproved)) {
+    return next();
+  }
+  res.status(403).json({ error: 'Forbidden' });
+}
+
+app.post('/signup', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Missing fields' });
+  }
+  if (users.find((u) => u.username === username)) {
+    return res.status(400).json({ error: 'User exists' });
+  }
+  const hash = await bcrypt.hash(password, 10);
+  const user = { username, password: hash, isAdmin: false, isApproved: false };
+  users.push(user);
+  saveUsers();
+  res.json({ status: 'created' });
+});
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find((u) => u.username === username);
+  if (!user) {
+    return res.status(400).json({ error: 'Invalid credentials' });
+  }
+  const ok = await bcrypt.compare(password, user.password);
+  if (!ok) {
+    return res.status(400).json({ error: 'Invalid credentials' });
+  }
+  req.session.user = { username: user.username, isAdmin: user.isAdmin, isApproved: user.isApproved };
+  res.json({ status: 'ok' });
+});
+
+app.post('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.json({ status: 'ok' });
+  });
+});
+
+app.get('/current_user', (req, res) => {
+  res.json(req.session.user || null);
+});
+
+app.post('/strains', requireLogin, (req, res) => {
+  const { name, price, store } = req.body;
+  if (!name || !price || !store) {
+    return res.status(400).json({ error: 'Missing fields' });
+  }
+  const data = loadStrains();
+  const existing = data.find((s) => s.name.toLowerCase() === name.toLowerCase());
+  if (existing) {
+    existing.price = price;
+    existing.store = store;
+  } else {
+    data.push({ name, price, store });
+  }
+  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+  res.json({ status: 'ok' });
+});
+
+app.delete('/strains/:name', requireAdmin, (req, res) => {
+  const { name } = req.params;
+  let data = loadStrains();
+  data = data.filter((s) => s.name.toLowerCase() !== name.toLowerCase());
+  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+  res.json({ status: 'deleted' });
 });
 
 app.get('/products', async (req, res) => {

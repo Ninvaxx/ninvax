@@ -3,10 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const adminLink = document.getElementById('adminLink');
   const logoutLink = document.getElementById('logoutLink');
 
-  function updateLinks() {
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  async function updateLinks() {
+    const res = await fetch('/current_user');
+    const user = res.ok ? await res.json() : null;
+    const isAdmin = user && (user.isAdmin || user.isApproved);
     if (isAdmin) {
       if (adminLink) adminLink.style.display = 'inline';
+      if (logoutLink) logoutLink.style.display = 'inline';
+      if (loginLink) loginLink.style.display = 'none';
+    } else if (user) {
+      if (adminLink) adminLink.style.display = 'none';
       if (logoutLink) logoutLink.style.display = 'inline';
       if (loginLink) loginLink.style.display = 'none';
     } else {
@@ -17,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (logoutLink) {
-    logoutLink.addEventListener('click', (e) => {
+    logoutLink.addEventListener('click', async (e) => {
       e.preventDefault();
-      localStorage.removeItem('isAdmin');
+      await fetch('/logout', { method: 'POST' });
       updateLinks();
     });
   }

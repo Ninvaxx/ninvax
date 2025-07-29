@@ -64,6 +64,10 @@
         />
       </label>
       <button type="submit">Login</button>
+      <div style="margin:10px 0;">
+        <button id="appleBtn" type="button">Sign in with Apple (coming soon)</button>
+        <button id="chatgptBtn" type="button">Sign in with ChatGPT (coming soon)</button>
+      </div>
       <div id="error"></div>
     </form>
 
@@ -71,16 +75,19 @@
     <script>
       document
         .getElementById("loginForm")
-        .addEventListener("submit", function (e) {
+        .addEventListener("submit", async function (e) {
           e.preventDefault();
           const u = document.getElementById("username").value.trim();
           const p = document.getElementById("password").value;
-          if (u === "ninvax" && p === "ninvaxxx") {
-            localStorage.setItem("isAdmin", "true");
-            window.location.href = "index.html";
+          const res = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: u, password: p })
+          });
+          if (res.ok) {
+            window.location.href = 'index.html';
           } else {
-            document.getElementById("error").textContent =
-              "Invalid credentials";
+            document.getElementById('error').textContent = 'Invalid credentials';
           }
         });
     </script>

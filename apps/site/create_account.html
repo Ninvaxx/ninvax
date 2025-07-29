@@ -55,10 +55,18 @@
           <input type="text" id="username" required />
         </label>
         <label>
+          Password
+          <input type="password" id="password" required />
+        </label>
+        <label>
           Email
           <input type="email" id="email" required />
         </label>
         <button type="submit" class="neon-button">Create Account</button>
+        <div style="margin-top:10px;">
+          <button type="button">Sign up with Apple (coming soon)</button>
+          <button type="button">Sign up with ChatGPT (coming soon)</button>
+        </div>
       </form>
       <div id="message"></div>
     </div>
@@ -105,10 +113,22 @@
         modal.style.display = "flex";
       });
 
-      yesBtn.addEventListener("click", function () {
+      yesBtn.addEventListener("click", async function () {
         modal.style.display = "none";
-        msg.textContent = "Account created!";
-        form.reset();
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+        const res = await fetch('/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        if (res.ok) {
+          msg.textContent = "Account created!";
+          form.reset();
+        } else {
+          const data = await res.json();
+          msg.textContent = data.error || 'Failed to create';
+        }
       });
 
       noBtn.addEventListener("click", function () {
