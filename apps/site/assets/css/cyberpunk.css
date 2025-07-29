@@ -218,3 +218,21 @@ body::before {
 .anthropic-badge { background: #f5f0e6; }
 .gemini-badge { background: #ffce00; }
 .cohere-badge  { background: #6500ea; color: #fff; }
+.ai-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-top: 10px;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+    transition: transform 0.2s ease-in-out;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
