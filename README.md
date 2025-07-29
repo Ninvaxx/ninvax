@@ -25,3 +25,7 @@ This repository hosts all projects that make up the Ninvax platform. Runtime app
 
 Copy the provided `.env.example` files where available and supply the required values. Run the applications with the commands listed above.
 
+
+## AI Ensemble
+
+The bot application can query multiple language models (OpenAI, Gemini, Claude, and Cohere) and combine their responses to improve accuracy. Run `python apps/bot/ask.py "your question"` to try it. This project credits [Major League Hacking](https://mlh.io) for community support.
