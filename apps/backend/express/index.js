@@ -26,7 +26,7 @@ const fs = require('fs');
 const path = require('path');
 const events = require('events');
 
-const dataPath = path.join(__dirname, '..', '..', 'site', 'strains.json');
+const dataPath = path.join(__dirname, '..', '..', 'site', 'products.json');
 const userPath = path.join(__dirname, 'users.json');
 const emitter = new events.EventEmitter();
 let cachedStrains = [];
@@ -124,6 +124,28 @@ app.post('/logout', (req, res) => {
 
 app.get('/current_user', (req, res) => {
   res.json(req.session.user || null);
+});
+
+app.patch('/user', requireLogin, async (req, res) => {
+  const { password, email } = req.body;
+  const user = users.find(u => u.username === req.session.user.username);
+  if (!user) return res.status(404).json({ error: 'Not found' });
+  if (password) {
+    user.password = await bcrypt.hash(password, 10);
+  }
+  if (email) {
+    user.email = email;
+  }
+  saveUsers();
+  res.json({ status: 'updated' });
+});
+
+app.delete('/user', requireLogin, (req, res) => {
+  users = users.filter(u => u.username !== req.session.user.username);
+  saveUsers();
+  req.session.destroy(() => {
+    res.json({ status: 'deleted' });
+  });
 });
 
 app.post('/strains', requireLogin, (req, res) => {

@@ -11,21 +11,13 @@
     <link rel="stylesheet" href="assets/css/cyberpunk.css" />
   </head>
   <body>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="create_account.html">Create Account</a>
-      <a href="signup.html">Beta Signup</a>
-      <a href="projects.html">Projects</a>
-      <a href="resume.html">Resume</a>
-      <a href="login.html" id="loginLink">Login</a>
-      <a href="admin.html" id="adminLink" style="display: none">Admin</a>
-      <a href="#" id="favoritesTab">Favorites</a>
-      <a href="#" id="logoutLink" style="display: none">Logout</a>
-    </nav>
+      <div id="nav-placeholder"></div>
     <div class="container">
       <h1 class="glitch">Resume</h1>
+      <nav id="toc" class="strain-list">
+        <a href="#experience">Experience</a> |
+        <a href="#education">Education</a>
+      </nav>
           <span class="image main"><img src="images/pic09.jpg" alt="" /></span>
           <section>
             <h2>AI Prompt Engineer / Cognitive Systems Designer</h2>
@@ -204,7 +196,7 @@
               isn&rsquo;t ready for.
             </p>
           </section>
-          <section>
+          <section id="experience">
             <h2>Experience</h2>
             <h3>ninvax &mdash; AI Prompt Engineer</h3>
             <p>
@@ -296,7 +288,7 @@
               </li>
             </ul>
           </section>
-          <section>
+          <section id="education">
             <h2>Education</h2>
             <ul>
               <li>
@@ -409,24 +401,12 @@
           </ul>
         </div>
       </footer>
-      <footer class="site-footer">
-        <p>&copy; 2025 Ninvax</p>
-        <div class="ai-credit">
-          <img src="images/openai-logo.svg" alt="OpenAI" class="openai-logo" />
-          <span class="chatgpt-badge">ChatGPT</span>
-          <img src="images/anthropic-logo.svg" alt="Anthropic" class="anthropic-logo" />
-          <span class="anthropic-badge">Claude</span>
-          <img src="images/gemini-logo.svg" alt="Gemini" class="gemini-logo" />
-          <span class="gemini-badge">Gemini</span>
-          <img src="images/cohere-logo.svg" alt="Cohere" class="cohere-logo" />
-          <span class="cohere-badge">Cohere</span>
-          <img src="images/mlh-sticker.svg" alt="MLH" class="mlh-sticker" />
-          <img src="images/logo.svg" alt="Ninvax" class="ninvax-logo" />
-        </div>
-      </footer>
+        <footer class="site-footer">
+          <p>&copy; 2025 Ninvax</p>
+        </footer>
 
-    <!-- Scripts -->
-    <script src="assets/js/animations.js"></script>
-    <script src="assets/js/auth.js"></script>
+      <!-- Scripts -->
+      <script src="assets/js/animations.js"></script>
+      <script src="assets/js/nav.js"></script>
 </body>
 </html>

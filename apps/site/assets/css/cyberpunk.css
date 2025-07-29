@@ -1,6 +1,6 @@
 body {
     background-color: #000;
-    color: #fff;
+    color: #f0f0f0;
     font-family: 'Orbitron', sans-serif;
     margin: 0;
     padding: 0;
@@ -19,7 +19,7 @@ nav {
 }
 
 nav a {
-    color: #ff00ff;
+    color: #ff66ff;
     margin: 0 15px;
     text-decoration: none;
     font-size: 1.1em;
@@ -27,7 +27,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #ff007a;
+    color: #ff00ff;
     text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff007a;
     animation: glitch-hover 0.2s alternate 2;
 }

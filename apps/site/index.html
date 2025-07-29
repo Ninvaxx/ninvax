@@ -209,21 +209,7 @@
   </head>
   <body>
     <div class="intro-banner">Ninvax 🪐 Reality Hackers Unite</div>
-    <div class="header">
-      <nav class="nav">
-        <a href="index.html" id="homeTab">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="create_account.html">Create Account</a>
-        <a href="signup.html">Beta Signup</a>
-        <a href="projects.html">Projects</a>
-        <a href="resume.html">Resume</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="admin.html" id="adminLink" style="display: none">Admin</a>
-        <a href="#" id="favoritesTab">Favorites</a>
-        <a href="#" id="logoutLink" style="display: none">Logout</a>
-      </nav>
-    </div>
+      <div id="nav-placeholder"></div>
     <main>
       <section style="text-align:center; margin-bottom:20px;">
         <h1>Ninvax Empire</h1>
@@ -262,10 +248,7 @@
               timeoutId = setTimeout(() => func.apply(this, args), delay);
           };
       }
-      let strains = [
-          { name: 'Cheetah Piss', price: 75.00, store: 'Rochelle Park-Rec' },
-          { name: 'Melted Sherb', price: 75.00, store: 'Rochelle Park-Rec' }
-      ];
+      let strains = [];
 
       let favorites = JSON.parse(localStorage.getItem('starredStrains') || '[]');
       let showingFavorites = false;
@@ -295,6 +278,10 @@
       function renderStrains(data = strains) {
           const list = document.getElementById('strainList');
           list.innerHTML = '';
+          if (!data.length) {
+              list.textContent = 'No results found';
+              return;
+          }
           data.forEach((strain) => {
               const card = document.createElement('div');
               card.className = 'strain-card';
@@ -306,7 +293,13 @@
           });
       }
 
-      function toggleFavorite(name) {
+      async function toggleFavorite(name) {
+          const userRes = await fetch('/current_user');
+          const user = userRes.ok ? await userRes.json() : null;
+          if (!user) {
+              alert('Login to save favorites');
+              return;
+          }
           const idx = favorites.indexOf(name);
           if (idx > -1) {
               favorites.splice(idx, 1);
@@ -419,22 +412,10 @@
           }
       };
     </script>
-    <script src="assets/js/auth.js"></script>
-    <footer class="site-footer">
-      <p>&copy; 2025 Ninvax</p>
-      <div class="ai-credit">
-        <img src="images/openai-logo.svg" alt="OpenAI" class="openai-logo" />
-        <span class="chatgpt-badge">ChatGPT</span>
-        <img src="images/anthropic-logo.svg" alt="Anthropic" class="anthropic-logo" />
-        <span class="anthropic-badge">Claude</span>
-        <img src="images/gemini-logo.svg" alt="Gemini" class="gemini-logo" />
-        <span class="gemini-badge">Gemini</span>
-        <img src="images/cohere-logo.svg" alt="Cohere" class="cohere-logo" />
-        <span class="cohere-badge">Cohere</span>
-        <img src="images/mlh-sticker.svg" alt="MLH" class="mlh-sticker" />
-        <img src="images/logo.svg" alt="Ninvax" class="ninvax-logo" />
-      </div>
-    </footer>
+      <script src="assets/js/nav.js"></script>
+      <footer class="site-footer">
+        <p>&copy; 2025 Ninvax</p>
+      </footer>
     <div id="toast" class="toast"></div>
   </body>
 </html>
