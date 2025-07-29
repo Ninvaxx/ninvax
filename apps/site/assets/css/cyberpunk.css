@@ -107,6 +107,14 @@ footer {
     margin-top: 40px;
 }
 
+.site-footer {
+    background: #111;
+    text-align: center;
+    color: #ff007a;
+    padding: 20px;
+    margin-top: 40px;
+}
+
 .glitch {
     position: relative;
 }
@@ -186,13 +194,14 @@ body::before {
 .cohere-logo,
 .mlh-sticker,
 .ninvax-logo {
-    animation: pulse-logo 3s ease-in-out infinite;
     width: 32px;
     height: 32px;
+    animation: none;
+    transition: transform 0.2s ease-in-out;
 }
 
-.openai-logo {
-    animation: spin 6s linear infinite;
+.ai-credit img:hover {
+    transform: scale(1.1);
 }
 
 .chatgpt-badge,
@@ -209,14 +218,3 @@ body::before {
 .anthropic-badge { background: #f5f0e6; }
 .gemini-badge { background: #ffce00; }
 .cohere-badge  { background: #6500ea; color: #fff; }
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes pulse-logo {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
