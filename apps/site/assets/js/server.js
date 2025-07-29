@@ -1,6 +1,7 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -54,6 +55,15 @@ app.post('/signup', (req, res) => {
   data.push(signup);
   fs.writeFileSync(file, JSON.stringify(data, null, 2));
   res.status(200).json({ status: 'ok' });
+});
+
+app.get('/products', (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'products.json')));
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error' });
+  }
 });
 
 app.use(express.static('.'));
