@@ -1,6 +1,6 @@
-# Ninvax Static Site
+# Ninvax Website
 
-Static landing pages and a small contact server.
+Landing pages and a small contact server.
 
 Preview locally by opening `index.html` or running:
 
