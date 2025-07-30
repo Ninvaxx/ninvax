@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ninvax</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="intro-banner">Ninvax 🪐 Reality Hackers Unite</div>
+    <header class="site-header">
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="resume.html">Resume</a>
+      </nav>
+    </header>
+    <main>
+      <section class="container hero-section">
+        <h1>Ninvax Empire</h1>
+        <p>The glitchy hub for reality hackers building a trillion‑dollar empire.</p>
+      </section>
+      <input
+        type="text"
+        class="search-bar"
+        placeholder="Search strains..."
+        aria-label="Search strains"
+        id="searchInput"
+        onkeyup="filterStrains()"
+      />
+      <div class="strain-list" id="strainList"></div>
+
+      <form id="storeForm" class="store-form hidden">
+        <input type="text" id="name" placeholder="Strain name" required />
+        <input
+          type="number"
+          id="price"
+          placeholder="Price"
+          step="0.01"
+          required
+        />
+        <div id="priceError" class="error"></div>
+        <input type="text" id="store" placeholder="Store name" required />
+        <button type="submit" class="btn">Add Strain</button>
+      </form>
+    </main>
+
+    <script>
+      function debounce(func, delay) {
+          let timeoutId;
+          return function(...args) {
+              clearTimeout(timeoutId);
+              timeoutId = setTimeout(() => func.apply(this, args), delay);
+          };
+      }
+      let strains = [];
+
+      let favorites = JSON.parse(localStorage.getItem('starredStrains') || '[]');
+      let showingFavorites = false;
+
+      async function loadStrains() {
+          const cached = localStorage.getItem('strainsData');
+          const timestamp = localStorage.getItem('strainsTimestamp');
+          const now = Date.now();
+          if (cached && timestamp && now - parseInt(timestamp, 10) < 24 * 60 * 60 * 1000) {
+              strains = JSON.parse(cached);
+              renderStrains();
+              return;
+          }
+          try {
+              const res = await fetch('/products');
+              if (res.ok) {
+                  strains = await res.json();
+                  localStorage.setItem('strainsData', JSON.stringify(strains));
+                  localStorage.setItem('strainsTimestamp', now.toString());
+              }
+          } catch (e) {
+              console.error('Failed to fetch strains', e);
+          }
+          renderStrains();
+      }
+
+      function renderStrains(data = strains) {
+          const list = document.getElementById('strainList');
+          list.innerHTML = '';
+          if (!data.length) {
+              list.textContent = 'No results found';
+              return;
+          }
+          data.forEach((strain) => {
+              const card = document.createElement('div');
+              card.className = 'card strain-card';
+
+              const starred = favorites.includes(strain.name) ? '★' : '☆';
+              card.innerHTML = `<h3>${strain.name} <span class="star" onclick="toggleFavorite('${strain.name}')">${starred}</span></h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
+              card.tabIndex = 0;
+              list.appendChild(card);
+          });
+      }
+
+      async function toggleFavorite(name) {
+          const userRes = await fetch('/current_user');
+          const user = userRes.ok ? await userRes.json() : null;
+          if (!user) {
+              alert('Login to save favorites');
+              return;
+          }
+          const idx = favorites.indexOf(name);
+          if (idx > -1) {
+              favorites.splice(idx, 1);
+          } else {
+              favorites.push(name);
+          }
+          localStorage.setItem('starredStrains', JSON.stringify(favorites));
+          if (showingFavorites) {
+              renderStrains(strains.filter(s => favorites.includes(s.name)));
+          } else {
+              renderStrains();
+          }
+      }
+
+      function filterStrains() {
+          const input = document.getElementById('searchInput').value.toLowerCase();
+          const base = showingFavorites ? strains.filter(s => favorites.includes(s.name)) : strains;
+          const filtered = base.filter(s => s.name.toLowerCase().includes(input));
+          renderStrains(filtered);
+      }
+
+
+      document.getElementById('price').addEventListener('input', function() {
+          this.value = this.value.match(/^\d*\.?\d*$/) ? this.value : this.value.slice(0, -1);
+      });
+
+      const priceInput = document.getElementById('price');
+      priceInput.addEventListener('input', function() {
+          this.value = this.value.replace(/[^0-9.]/g, '');
+      });
+
+      function showToast(message, isError = false) {
+          const toast = document.getElementById('toast');
+
+          if (!toast) {
+              console.warn('Toast element not found in the DOM.');
+              return;
+          }
+
+          toast.textContent = message;
+          toast.style.backgroundColor = isError ? '#c0392b' : '#4caf50';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+
+
+      document.getElementById('storeForm').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const name = document.getElementById('name').value.trim();
+
+          const priceInput = document.getElementById('price');
+          const price = parseFloat(priceInput.value);
+          const store = document.getElementById('store').value.trim();
+          const priceError = document.getElementById('priceError');
+          const isInvalidPrice = isNaN(price) || price <= 0;
+          if (!name || !store || isInvalidPrice) {
+              if (isInvalidPrice) {
+                  priceError.textContent = 'Price must be > 0';
+              }
+              showToast('Failed to add strain', true);
+              return;
+          }
+          priceError.textContent = '';
+
+          const errorEl = document.getElementById('priceError');
+          if (isNaN(price) || price <= 0) {
+              errorEl.style.display = 'block';
+              showToast('Price must be > 0', true);
+              return;
+          }
+          errorEl.style.display = 'none';
+
+
+          const res = await fetch('/strains', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, price, store })
+          });
+          if (res.ok) {
+              loadStrains();
+              this.reset();
+              showToast('Strain added!');
+          } else {
+              showToast('Failed to add strain', true);
+          }
+      });
+
+      document.getElementById('favoritesTab').addEventListener('click', function(e) {
+          e.preventDefault();
+          showingFavorites = true;
+          renderStrains(strains.filter(s => favorites.includes(s.name)));
+      });
+
+      document.getElementById('homeTab').addEventListener('click', function(e) {
+          e.preventDefault();
+          showingFavorites = false;
+          renderStrains();
+      });
+
+      window.onload = async function() {
+          loadStrains();
+          setInterval(loadStrains, 24 * 60 * 60 * 1000);
+          const searchInput = document.getElementById('searchInput');
+          const debouncedFilter = debounce(filterStrains, 300);
+          searchInput.addEventListener('input', debouncedFilter);
+
+          const res = await fetch('/current_user');
+          if (res.ok && await res.json()) {
+              document.getElementById('storeForm').style.display = 'block';
+          }
+      };
+    </script>
+    <script type="module" src="scripts/theme-toggle.js"></script>
+    <script type="module" src="scripts/grayscale-hover.js"></script>
+    <footer class="site-footer">
+        <p>&copy; 2025 Ninvax</p>
+    <div class="ai-credit">Made with ChatGPT, Apple, and MLH.</div>
+      </footer>
+    <div id="toast" class="toast"></div>
+  </body>
+</html>
