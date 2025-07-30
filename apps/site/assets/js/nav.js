@@ -8,5 +8,9 @@ window.addEventListener('DOMContentLoaded', () => {
       const script = document.createElement('script');
       script.src = 'assets/js/auth.js';
       document.body.appendChild(script);
+
+      const themeScript = document.createElement('script');
+      themeScript.src = 'assets/js/theme.js';
+      document.body.appendChild(themeScript);
     });
 });
