@@ -12,5 +12,9 @@ window.addEventListener('DOMContentLoaded', () => {
       const themeScript = document.createElement('script');
       themeScript.src = 'assets/js/theme.js';
       document.body.appendChild(themeScript);
+
+      const navbarScript = document.createElement('script');
+      navbarScript.src = 'assets/js/navbar.js';
+      document.body.appendChild(navbarScript);
     });
 });
