@@ -1,6 +1,6 @@
 """SQLAlchemy ORM models for the Ninvax backend."""
 
-from sqlalchemy import Column, DateTime, ForeignKey, String
+from sqlalchemy import Column, DateTime, ForeignKey, String, Text, Integer
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
@@ -20,6 +20,9 @@ class User(Base):
     subscription = relationship(
         "Subscription", uselist=False, back_populates="user"
     )
+    journal_entries = relationship("JournalEntry", back_populates="user")
+    mood_logs = relationship("MoodLog", back_populates="user")
+    ai_actions = relationship("AIAction", back_populates="user")
 
 class Subscription(Base):
     """User subscription status."""
@@ -45,4 +48,44 @@ class Flag(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     user = relationship("User", back_populates="flags")
+
+
+class JournalEntry(Base):
+    """Free-form journal text created by a user."""
+
+    __tablename__ = "journal_entries"
+
+    id = Column(String, primary_key=True)
+    user_id = Column(String, ForeignKey("users.id"))
+    content = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user = relationship("User", back_populates="journal_entries")
+
+
+class MoodLog(Base):
+    """Logs of mood with a numeric score."""
+
+    __tablename__ = "mood_logs"
+
+    id = Column(String, primary_key=True)
+    user_id = Column(String, ForeignKey("users.id"))
+    mood = Column(String)
+    score = Column(Integer)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user = relationship("User", back_populates="mood_logs")
+
+
+class AIAction(Base):
+    """Record of an action taken by the assistant."""
+
+    __tablename__ = "ai_actions"
+
+    id = Column(String, primary_key=True)
+    user_id = Column(String, ForeignKey("users.id"))
+    action = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user = relationship("User", back_populates="ai_actions")
 
