@@ -13,14 +13,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   </head>
   <body>
-      <header class="site-header">
-        <nav class="site-nav">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="projects.html">Projects</a>
-          <a href="resume.html">Resume</a>
-        </nav>
-      </header>
+    <div id="nav"></div>
+    <script>
+fetch('/components/nav.html')
+  .then(res => res.text())
+  .then(html => document.getElementById('nav').innerHTML = html);
+    </script>
     <div class="container fade-slide-up">
       <h1 class="glitch">About Ninvax</h1>
       <p class="about-text">
@@ -30,10 +28,12 @@
       </p>
       <div class="saturn-ring-animation" style="display: none"></div>
     </div>
-    <footer class="site-footer">
-      <p>&copy; 2025 Ninvax</p>
-    <div class="ai-credit">Made with ChatGPT, Apple, and MLH.</div>
-    </footer>
+    <div id="footer"></div>
+    <script>
+fetch('/components/footer.html')
+  .then(res => res.text())
+  .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
     <script type="module" src="scripts/theme-toggle.js"></script>
     <script type="module" src="scripts/grayscale-hover.js"></script>
   </body>

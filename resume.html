@@ -11,14 +11,12 @@
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-      <header class="site-header">
-        <nav class="site-nav">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="projects.html">Projects</a>
-          <a href="resume.html">Resume</a>
-        </nav>
-      </header>
+      <div id="nav"></div>
+      <script>
+fetch('/components/nav.html')
+  .then(res => res.text())
+  .then(html => document.getElementById('nav').innerHTML = html);
+      </script>
     <div class="container">
       <h1 class="glitch">Resume</h1>
       <nav id="toc" class="strain-list">
@@ -408,10 +406,12 @@
           </ul>
         </div>
       </footer>
-        <footer class="site-footer">
-          <p>&copy; 2025 Ninvax</p>
-    <div class="ai-credit">Made with ChatGPT, Apple, and MLH.</div>
-        </footer>
+        <div id="footer"></div>
+        <script>
+fetch('/components/footer.html')
+  .then(res => res.text())
+  .then(html => document.getElementById('footer').innerHTML = html);
+        </script>
 
       <!-- Scripts -->
       <script type="module" src="scripts/theme-toggle.js"></script>

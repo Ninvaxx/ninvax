@@ -8,14 +8,12 @@
   </head>
   <body>
     <div class="intro-banner">Ninvax 🪐 Reality Hackers Unite</div>
-    <header class="site-header">
-      <nav class="site-nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
-        <a href="resume.html">Resume</a>
-      </nav>
-    </header>
+    <div id="nav"></div>
+    <script>
+fetch('/components/nav.html')
+  .then(res => res.text())
+  .then(html => document.getElementById('nav').innerHTML = html);
+    </script>
     <main>
       <section class="container hero-section">
         <h1>Ninvax Empire</h1>
@@ -58,6 +56,14 @@
 
       let favorites = JSON.parse(localStorage.getItem('starredStrains') || '[]');
       let showingFavorites = false;
+      let cardTemplate = '';
+
+      async function loadCardTemplate() {
+          const res = await fetch('/components/product-card.html');
+          if (res.ok) {
+              cardTemplate = await res.text();
+          }
+      }
 
       async function loadStrains() {
           const cached = localStorage.getItem('strainsData');
@@ -89,11 +95,14 @@
               return;
           }
           data.forEach((strain) => {
-              const card = document.createElement('div');
-              card.className = 'card strain-card';
+              const wrapper = document.createElement('div');
+              wrapper.innerHTML = cardTemplate.trim();
+              const card = wrapper.firstElementChild;
+              card.classList.add('strain-card');
 
               const starred = favorites.includes(strain.name) ? '★' : '☆';
-              card.innerHTML = `<h3>${strain.name} <span class="star" onclick="toggleFavorite('${strain.name}')">${starred}</span></h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
+              card.querySelector('h3').innerHTML = `${strain.name} <span class="star" onclick="toggleFavorite('${strain.name}')">${starred}</span>`;
+              card.querySelector('p').textContent = `$${strain.price.toFixed(2)} at ${strain.store}`;
               card.tabIndex = 0;
               list.appendChild(card);
           });
@@ -206,6 +215,7 @@
       });
 
       window.onload = async function() {
+          await loadCardTemplate();
           loadStrains();
           setInterval(loadStrains, 24 * 60 * 60 * 1000);
           const searchInput = document.getElementById('searchInput');
@@ -220,10 +230,12 @@
     </script>
     <script type="module" src="scripts/theme-toggle.js"></script>
     <script type="module" src="scripts/grayscale-hover.js"></script>
-    <footer class="site-footer">
-        <p>&copy; 2025 Ninvax</p>
-    <div class="ai-credit">Made with ChatGPT, Apple, and MLH.</div>
-      </footer>
+    <div id="footer"></div>
+    <script>
+fetch('/components/footer.html')
+  .then(res => res.text())
+  .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
     <div id="toast" class="toast"></div>
   </body>
 </html>
