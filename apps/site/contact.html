@@ -9,12 +9,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/cyberpunk.css" />
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
   <body>
     <div id="nav-placeholder"></div>
     <div class="container">
-      <div class="saturn-ring-animation" style="display: block"></div>
+      <div class="saturn-ring-animation"></div>
       <h1 class="glitch">Contact Us</h1>
       <form onsubmit="handleContact(event, '/contact')">
         <label>
@@ -49,7 +51,7 @@
         </label>
         <button type="submit" class="neon-button">Send</button>
       </form>
-      <div id="confirmation" style="display: none">
+      <div id="confirmation" class="hidden">
         Thanks for reaching out!
       </div>
     </div>

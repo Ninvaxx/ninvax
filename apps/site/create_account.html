@@ -9,29 +9,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/cyberpunk.css" />
-    <style>
-      #confirmModal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.8);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 2000;
-      }
-      #confirmBox {
-        background: #000;
-        border: 2px solid #ff00ff;
-        padding: 20px;
-        text-align: center;
-      }
-      #confirmBox button {
-        margin: 0 10px;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <div id="nav-placeholder"></div>
@@ -51,7 +30,7 @@
           <input type="email" id="email" pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" required />
         </label>
         <button type="submit" class="neon-button">Create Account</button>
-        <div style="margin-top:10px;">
+        <div class="button-group">
           <button type="button">Sign up with Apple (coming soon)</button>
           <button type="button">Sign up with ChatGPT (coming soon)</button>
         </div>

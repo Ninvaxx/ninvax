@@ -5,213 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ninvax</title>
     <link rel="stylesheet" href="assets/css/cyberpunk.css" />
-    <style>
-      body {
-        background-color: #000000;
-        color: #ff00ff;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      .intro-banner {
-        animation: slideDown 1s ease-out;
-        background-color: #ff00ff;
-        color: #000;
-        text-align: center;
-        padding: 10px;
-        font-size: 1.5em;
-        font-family: "Orbitron", sans-serif;
-        font-weight: bold;
-      }
-      main {
-        max-width: 800px;
-        margin: 0 auto;
-      }
-      .header {
-        background-color: #000000;
-        padding: 10px;
-        text-align: center;
-        border-bottom: 2px solid #800080;
-        animation: pulse 3s infinite;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-      }
-      .nav {
-        margin-top: 10px;
-      }
-      .nav a {
-        color: #ff00ff;
-        margin: 0 10px;
-        text-decoration: none;
-        outline-offset: 2px;
-      }
-      .nav a:focus {
-        outline: 2px solid #fff;
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          box-shadow: 0 0 5px #800080;
-        }
-        50% {
-          box-shadow: 0 0 15px #ff00ff;
-        }
-      }
-      .search-bar {
-        padding: 10px;
-        margin: 10px;
-        width: 80%;
-        border-radius: 5px;
-        border: 1px solid #800080;
-        background-color: #000000;
-        color: #ff00ff;
-        position: sticky;
-
-        top: var(--header-height);
-
-        top: calc(
-          var(--header-height) + 10px
-        ); /* Dynamically position the search bar */
-
-        z-index: 999;
-      }
-      .strain-list {
-        padding: 10px;
-      }
-      .strain-card {
-        background-color: #000000;
-        border: 2px solid #800080;
-        border-radius: 5px;
-        padding: 10px;
-        margin: 10px 0;
-        color: #ffffff;
-        outline-offset: 2px;
-      }
-      .strain-card:focus {
-        outline: 2px solid #ff00ff;
-      }
-      .star {
-        cursor: pointer;
-        color: #ffd700;
-        margin-left: 5px;
-      }
-      .order-btn {
-        background-color: #ff00ff;
-        color: #000000;
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        outline-offset: 2px;
-      }
-      .order-btn:focus {
-        outline: 2px solid #fff;
-      }
-      .store-form {
-        padding: 10px;
-        border: 2px solid #800080;
-        margin: 20px;
-      }
-      .store-form input {
-        width: calc(100% - 22px);
-        padding: 10px;
-        margin: 5px 0;
-        background-color: #000000;
-        border: 1px solid #800080;
-        color: #ff00ff;
-        border-radius: 5px;
-      }
-      .error {
-        color: #ff4d4d;
-        font-size: 0.9em;
-        display: none;
-        margin: 4px 0;
-      }
-      .toast {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #4caf50;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 4px;
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-      .toast.show {
-        opacity: 1;
-      }
-      .submit-btn {
-        background-color: #ff00ff;
-        color: #000000;
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        outline-offset: 2px;
-      }
-      .submit-btn:focus {
-        outline: 2px solid #fff;
-      }
-      .error {
-        color: red;
-        font-size: 0.9em;
-        margin-top: 4px;
-      }
-      .toast {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #4caf50;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 5px;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.5s ease;
-      }
-      footer {
-        text-align: center;
-        padding: 10px;
-        color: #800080;
-      }
-      .ai-credit {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        margin: 20px 0;
-      }
-      .openai-logo {
-        width: 32px;
-        height: 32px;
-        vertical-align: middle;
-        animation: spin 6s linear infinite;
-      }
-      .chatgpt-badge {
-        background: #fff;
-        color: #000;
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 0.9em;
-      }
-      @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-
-      @keyframes slideDown {
-        from { transform: translateY(-50px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
-    </style>
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <div class="intro-banner">Ninvax 🪐 Reality Hackers Unite</div>
       <div id="nav-placeholder"></div>
     <main>
-      <section style="text-align:center; margin-bottom:20px;">
+      <section class="container hero-section">
         <h1>Ninvax Empire</h1>
         <p>The glitchy hub for reality hackers building a trillion‑dollar empire.</p>
       </section>
@@ -225,7 +26,7 @@
       />
       <div class="strain-list" id="strainList"></div>
 
-      <form id="storeForm" class="store-form" style="display:none;">
+      <form id="storeForm" class="store-form hidden">
         <input type="text" id="name" placeholder="Strain name" required />
         <input
           type="number"
@@ -236,7 +37,7 @@
         />
         <div id="priceError" class="error"></div>
         <input type="text" id="store" placeholder="Store name" required />
-        <button type="submit" class="submit-btn">Add Strain</button>
+        <button type="submit" class="btn">Add Strain</button>
       </form>
     </main>
 
@@ -284,7 +85,7 @@
           }
           data.forEach((strain) => {
               const card = document.createElement('div');
-              card.className = 'strain-card';
+              card.className = 'card strain-card';
 
               const starred = favorites.includes(strain.name) ? '★' : '☆';
               card.innerHTML = `<h3>${strain.name} <span class="star" onclick="toggleFavorite('${strain.name}')">${starred}</span></h3><p>$${strain.price.toFixed(2)} at ${strain.store}</p>`;
