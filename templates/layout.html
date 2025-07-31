@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    <div id="nav"></div>
+    <script>
+      fetch('/components/nav.html')
+        .then(res => res.text())
+        .then(html => document.getElementById('nav').innerHTML = html);
+    </script>
+    <main>
+      {{content}}
+    </main>
+    <div id="footer"></div>
+    <script>
+      fetch('/components/footer.html')
+        .then(res => res.text())
+        .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
+  </body>
+</html>
