@@ -4,7 +4,9 @@
   "description": "This repository contains the static files for the Ninvax website. The project is intentionally minimal and uses plain HTML, CSS and JavaScript.",
   "main": "generateContent.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate:metadata": "node scripts/generateMetadata.js",
+    "generate:pages": "node scripts/generatePage.js"
   },
   "keywords": [],
   "author": "",
