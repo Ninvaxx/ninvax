@@ -1,4 +1,14 @@
 [
-    { "name": "Cheetah Piss", "price": 75.0, "store": "Rochelle Park-Rec" },
-    { "name": "Melted Sherb", "price": 75.0, "store": "Rochelle Park-Rec" }
+  {
+    "name": "Cheetah Piss",
+    "type": "Hybrid",
+    "image": "/public/images/cheetah.png",
+    "description": "Potent strain with diesel and floral notes."
+  },
+  {
+    "name": "Melted Sherb",
+    "type": "Indica",
+    "image": "/public/images/sherb.png",
+    "description": "Relaxing strain with dessert flavors."
+  }
 ]
