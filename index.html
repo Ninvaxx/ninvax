@@ -28,6 +28,7 @@ fetch('/components/nav.html')
         onkeyup="filterStrains()"
       />
       <div class="strain-list" id="strainList"></div>
+      <div class="strain-list" id="productList"></div>
 
       <form id="storeForm" class="store-form hidden">
         <input type="text" id="name" placeholder="Strain name" required />
@@ -228,6 +229,7 @@ fetch('/components/nav.html')
           }
       };
     </script>
+    <script src="scripts/render-products.js"></script>
     <script type="module" src="scripts/theme-toggle.js"></script>
     <script type="module" src="scripts/grayscale-hover.js"></script>
     <div id="footer"></div>
