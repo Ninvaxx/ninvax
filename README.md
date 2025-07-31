@@ -17,3 +17,7 @@ about.html        About page
 ```
 
 Clone the repository and open `index.html` in your browser to view the site.
+
+## Legal
+
+All website content is © 2025 Ninvax and is provided for personal viewing only. See [Terms of Use](terms.html) for details.

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Use</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div id="nav"></div>
+    <script>
+fetch('/components/nav.html')
+  .then(res => res.text())
+  .then(html => document.getElementById('nav').innerHTML = html);
+    </script>
+    <main class="container">
+      <h1>Terms of Use</h1>
+      <p>All content on this website is &copy; 2025 Ninvax. All rights reserved. You may not reproduce, distribute, or adapt any material without prior written consent.</p>
+      <p>If you believe content from this site has been used without permission, please contact us at <a href="mailto:info@ninvax.com">info@ninvax.com</a>.</p>
+    </main>
+    <div id="footer"></div>
+    <script>
+fetch('/components/footer.html')
+  .then(res => res.text())
+  .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
+  </body>
+</html>
