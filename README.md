@@ -11,7 +11,7 @@ styles/           Site-wide CSS
 scripts/          JavaScript modules
 data/             Static JSON data
 index.html        Home page
-projects.html     Projects overview
+timeline.html     Personal timeline
 resume.html       Resume
 about.html        About page
 ```
