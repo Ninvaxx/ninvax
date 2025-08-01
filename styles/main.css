@@ -9,6 +9,14 @@ body {
     background-attachment: fixed;
 }
 
+.intro-banner {
+    background: #111;
+    color: #ff00ff;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
 nav {
     text-align: center;
     padding: 20px 0;
@@ -235,4 +243,39 @@ body::before {
 
 .logo:hover {
     transform: scale(1.1);
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    margin: 1em 0;
+    background: #1a1a1a;
+    border: 2px solid #ff00ff;
+    color: #fff;
+}
+
+.strain-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1em;
+}
+
+.product-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #ff00ff;
+    padding: 1em;
+    border-radius: 8px;
+}
+
+.store-form {
+    margin-top: 2em;
+}
+
+.error {
+    color: #ff007a;
+    font-size: 0.9em;
+}
+
+.hidden {
+    display: none;
 }
