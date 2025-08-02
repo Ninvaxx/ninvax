@@ -1,0 +1,25 @@
+:root {
+  /* dark theme (default) */
+  --clr-bg:       #0a0a0a;
+  --clr-surface:  #111;
+  --clr-primary:  #ff00ff;
+  --clr-secondary:#00ffff;
+  --clr-accent:   #e8e8e8;
+  --clr-text:     #e0e0e0;
+  --radius:       8px;
+  --t-fast:       0.2s;
+  --t-med:        0.4s;
+}
+
+body.dark-mode {
+  /* override tokens for dark mode if needed */
+}
+
+body.light-mode {
+  --clr-bg:       #fdfdfd;
+  --clr-surface:  #fff;
+  --clr-primary:  #6b00b6;
+  --clr-secondary:#0088cc;
+  --clr-accent:   #333;
+  --clr-text:     #222;
+}
