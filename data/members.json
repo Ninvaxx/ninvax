@@ -1,6 +1,20 @@
 [
   {
     "name": "Jane Doe",
-    "role": "Founder"
+    "role": "Founder",
+    "category": "Key Members",
+    "bio": "Visionary behind Ninvax's cosmic mission."
+  },
+  {
+    "name": "John Smith",
+    "role": "Strategic Advisor",
+    "category": "Advisors",
+    "bio": "Guides long-term strategy across tech and culture."
+  },
+  {
+    "name": "Acme Labs",
+    "role": "Research Partner",
+    "category": "Strategic Partners",
+    "bio": "Collaborates on cutting-edge cannabis technology."
   }
 ]
