@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Lounge Experience - Ninvax</title>
+    <link rel="stylesheet" href="/styles/core.css">
+    <script src="/scripts/theme-toggle.js" defer></script>
+    <!-- extra head scripts per page -->
+  </head>
+  <body class="grayscale-hover">
+    <div id="nav"></div><script src="/scripts/load-nav.js"></script>
+
+    <!-- OPTIONAL hero banner -->
+    <!-- <section class="intro-banner">Ninvax 🪐 Reality Hackers Unite</section> -->
+
+    <main class="container fade-slide-up">
+      <!-- page‑specific content -->
+      <h1 class="glitch" data-text="Lounge Experience">Lounge Experience</h1>
+      <section class="scroll-fade">
+        <img src="/public/images/lounge-placeholder.svg" alt="AR/3D concept art of the lounge" style="width:100%;max-width:600px;display:block;margin:auto;" />
+        <p class="intro-text">Explore our futuristic lounge through detailed visuals and conceptual art that blend nature with cutting-edge design.</p>
+      </section>
+
+      <section id="interactive" class="scroll-fade">
+        <h2>Interactive Features</h2>
+        <div class="vr-preview" style="margin:1rem 0;">
+          <iframe src="/public/vr-preview.html" title="VR Tour Preview" width="100%" height="300" loading="lazy"></iframe>
+        </div>
+        <p>Experience a sneak peek of the environment with our VR tour preview. Full immersive support is coming soon.</p>
+        <div id="constructionStatus" class="status-box">Loading construction status...</div>
+      </section>
+
+      <section id="amenities" class="scroll-fade">
+        <h2>Amenities</h2>
+        <ul>
+          <li><strong>Consumption Spaces</strong> – Relax in curated areas optimized for comfort and community.</li>
+          <li><strong>Creative Lab</strong> – A sandbox for innovators to experiment with tech and plant science.</li>
+          <li><strong>Holovault Pods</strong> – Private mixed-reality pods for deep-focus sessions or meditative escapes.</li>
+        </ul>
+      </section>
+
+      <section id="events" class="scroll-fade">
+        <h2>Events &amp; Booking</h2>
+        <p>Calendars and reservation forms will be integrated here to keep you connected with upcoming launches and gatherings.</p>
+        <div id="eventCalendar" class="coming-soon">Event schedule coming soon.</div>
+      </section>
+    </main>
+
+    <div id="footer"></div><script src="/scripts/load-footer.js"></script>
+    <!-- page‑specific scripts -->
+    <script src="/scripts/load-construction-status.js"></script>
+    <script src="/scripts/scroll-animate.js"></script>
+    <script type="module" src="/scripts/grayscale-hover.js"></script>
+  </body>
+</html>

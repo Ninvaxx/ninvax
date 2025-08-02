@@ -13,7 +13,7 @@ scripts/          JavaScript modules
 data/             Static JSON data
 ```
 
-Clone the repository and open `pages/index.html` in your browser to view the site.
+Clone the repository and open `pages/index.html` in your browser to view the site. Explore the early `pages/lounge.html` to preview the upcoming Lounge Experience.
 
 ## Legal
 
