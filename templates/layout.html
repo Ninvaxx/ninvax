@@ -1,26 +1,26 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="/styles/main.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title><!-- Page Title -->{{title}}</title>
+    <link rel="stylesheet" href="/styles/core.css">
+    <script src="/scripts/theme-toggle.js" defer></script>
+    <!-- extra head scripts per page -->
   </head>
-  <body>
-    <div id="nav"></div>
-    <script>
-      fetch('/components/nav.html')
-        .then(res => res.text())
-        .then(html => document.getElementById('nav').innerHTML = html);
-    </script>
-    <main>
+  <body class="grayscale-hover">
+    <div id="nav"></div><script src="/scripts/load-nav.js"></script>
+
+    <!-- OPTIONAL hero banner -->
+    <!-- <section class="intro-banner">Ninvax 🪐 Reality Hackers Unite</section> -->
+
+    <main class="container fade-slide-up">
+      <!-- page‑specific content -->
       {{content}}
     </main>
-    <div id="footer"></div>
-    <script>
-      fetch('/components/footer.html')
-        .then(res => res.text())
-        .then(html => document.getElementById('footer').innerHTML = html);
-    </script>
+
+    <div id="footer"></div><script src="/scripts/load-footer.js"></script>
+    <!-- page‑specific scripts -->
   </body>
 </html>
+
