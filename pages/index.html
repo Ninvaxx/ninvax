@@ -203,17 +203,23 @@
           }
       });
 
-      document.getElementById('favoritesTab').addEventListener('click', function(e) {
-          e.preventDefault();
-          showingFavorites = true;
-          renderStrains(strains.filter(s => favorites.includes(s.name)));
-      });
+      const favoritesTab = document.getElementById('favoritesTab');
+      if (favoritesTab) {
+          favoritesTab.addEventListener('click', function(e) {
+              e.preventDefault();
+              showingFavorites = true;
+              renderStrains(strains.filter(s => favorites.includes(s.name)));
+          });
+      }
 
-      document.getElementById('homeTab').addEventListener('click', function(e) {
-          e.preventDefault();
-          showingFavorites = false;
-          renderStrains();
-      });
+      const homeTab = document.getElementById('homeTab');
+      if (homeTab) {
+          homeTab.addEventListener('click', function(e) {
+              e.preventDefault();
+              showingFavorites = false;
+              renderStrains();
+          });
+      }
 
       window.onload = async function() {
           await loadCardTemplate();
