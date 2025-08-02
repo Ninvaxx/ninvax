@@ -279,3 +279,18 @@ body::before {
 .hidden {
     display: none;
 }
+* {
+  transition: filter 0.2s ease;
+}
+
+.grayscale-hover img,
+.grayscale-hover button,
+.grayscale-hover a {
+  filter: grayscale(100%);
+}
+
+.grayscale-hover img:hover,
+.grayscale-hover button:hover,
+.grayscale-hover a:hover {
+  filter: grayscale(0%);
+}
