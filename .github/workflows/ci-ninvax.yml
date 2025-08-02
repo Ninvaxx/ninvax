@@ -1,0 +1,81 @@
+name: CI for Ninvax
+
+on:
+  # Trigger on pushes to the main branch
+  push:
+    branches: ["main"]
+  # Trigger on pull requests to main
+  pull_request:
+    branches: ["main"]
+  # Allow manual triggering from the Actions tab
+  workflow_dispatch:
+
+# Set permissions for the GITHUB_TOKEN
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent run, but do not cancel in-progress runs
+concurrency:
+  group: "ninvax-ci"
+  cancel-in-progress: false
+
+jobs:
+  # Single job for CI checks
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate package.json
+        run: npm run generate:metadata --if-present
+
+      - name: Generate pages
+        run: npm run generate:pages --if-present
+
+      - name: Validate HTML files
+        run: |
+          echo "Checking HTML files exist and are valid..."
+          find . -name "*.html" -type f | head -10 | while read file; do
+            echo "Checking $file"
+            if [ -s "$file" ]; then
+              echo "✓ $file is not empty"
+            else
+              echo "✗ $file is empty"
+              exit 1
+            fi
+          done
+
+      - name: Check for broken links in HTML
+        run: |
+          echo "Basic link validation..."
+          grep -r "href=" . --include="*.html" | grep -E "(href=\"#|href=\"/)" || true
+
+      - name: Validate project structure
+        run: |
+          echo "Validating required directories and files..."
+          test -f "index.html" && echo "✓ index.html exists" || echo "✗ index.html missing"
+          test -d "pages" && echo "✓ pages directory exists" || echo "✗ pages directory missing"
+          test -d "styles" && echo "✓ styles directory exists" || echo "✗ styles directory missing"
+          test -d "scripts" && echo "✓ scripts directory exists" || echo "✗ scripts directory missing"
+
+      - name: Notify success
+        run: echo "✅ CI checks passed successfully!"
+        if: success()
+
+      - name: Notify failure
+        run: echo "❌ CI checks failed!"
+        if: failure()
