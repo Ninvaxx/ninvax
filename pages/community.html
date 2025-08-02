@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Community & Membership - Ninvax</title>
+    <link rel="stylesheet" href="/styles/core.css">
+    <script src="/scripts/theme-toggle.js" defer></script>
+    <!-- extra head scripts per page -->
+  </head>
+  <body class="grayscale-hover">
+    <div id="nav"></div><script src="/scripts/load-nav.js"></script>
+
+    <main class="container fade-slide-up">
+      <!-- page‑specific content -->
+      <h1 class="glitch" data-text="Community &amp; Membership">Community &amp; Membership</h1>
+
+      <section id="signup">
+        <h2>Membership Sign‑up</h2>
+        <form id="membership-form">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="text" name="wallet" placeholder="Wallet Address" required />
+          <select name="tier">
+            <option value="seed">Seed Tier</option>
+            <option value="bloom">Bloom Tier</option>
+            <option value="galaxy">Galaxy Tier</option>
+          </select>
+          <button type="submit" class="btn">Mint Membership NFT</button>
+        </form>
+        <div id="mint-status" class="placeholder">
+          <!-- NFT minting feedback will appear here -->
+        </div>
+      </section>
+
+      <section id="leaderboard">
+        <h2>Gamification Leaderboard</h2>
+        <p>
+          Member progression and rewards will be displayed in an interactive leaderboard.
+          Track challenges, earn points, and climb the ranks as features roll out.
+        </p>
+        <div id="leaderboard-placeholder" class="placeholder"></div>
+      </section>
+
+      <section id="community-links">
+        <h2>Join the Conversation</h2>
+        <p>Connect with fellow reality hackers in real time:</p>
+        <ul>
+          <li><a href="https://discord.com" target="_blank">Discord Community</a></li>
+          <li><a href="https://t.me" target="_blank">Telegram Channel</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <div id="footer"></div><script src="/scripts/load-footer.js"></script>
+    <!-- page‑specific scripts -->
+    <script src="/scripts/scroll-animate.js"></script>
+    <script type="module" src="/scripts/grayscale-hover.js"></script>
+  </body>
+</html>
