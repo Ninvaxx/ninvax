@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Business Plan & Investment - Ninvax</title>
+    <link rel="stylesheet" href="/styles/core.css">
+    <script src="/scripts/theme-toggle.js" defer></script>
+  </head>
+  <body class="grayscale-hover">
+    <div id="nav"></div><script src="/scripts/load-nav.js"></script>
+    <main class="container fade-slide-up">
+      <h1 class="glitch" data-text="Business Plan & Investment">Business Plan & Investment</h1>
+
+      <section id="pitch">
+        <h2>Pitch Deck</h2>
+        <iframe src="/public/pitch-deck.pdf" width="100%" height="400" title="Pitch Deck"></iframe>
+      </section>
+
+      <section id="download">
+        <h2>Business Plan</h2>
+        <p><a href="/public/business-plan.pdf" download>Download Business Plan (PDF)</a></p>
+      </section>
+
+      <section id="financial">
+        <h2>Financial Projections</h2>
+        <form id="calc-form" class="calc-form">
+          <label>Units Sold <input type="number" id="units" min="0" step="1"></label>
+          <label>Price per Unit ($) <input type="number" id="price" min="0" step="0.01"></label>
+          <label>Cost per Unit ($) <input type="number" id="cost" min="0" step="0.01"></label>
+        </form>
+        <p>Projected Revenue: $<span id="revenue">0.00</span></p>
+        <p>Projected Profit: $<span id="profit">0.00</span></p>
+      </section>
+
+      <section id="inquiry">
+        <h2>Investment Inquiries</h2>
+        <form id="invest-form" action="#" method="post">
+          <label>Name <input type="text" name="name" required></label>
+          <label>Email <input type="email" name="email" required></label>
+          <label>Message <textarea name="message" required></textarea></label>
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+
+      <section id="disclaimer">
+        <h2>Legal Disclaimer</h2>
+        <p>Information provided is for informational purposes only and does not constitute an offer to sell securities. Cannabis-related investments involve significant risk and may be restricted by law.</p>
+        <p>Prospective investors should consult legal and financial advisors before making investment decisions.</p>
+      </section>
+    </main>
+    <div id="footer"></div><script src="/scripts/load-footer.js"></script>
+    <script src="/scripts/financial-calculator.js"></script>
+  </body>
+</html>
