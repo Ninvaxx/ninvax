@@ -4,10 +4,20 @@ const btn = document.getElementById('theme-toggle');
 if (isLoggedIn) btn.hidden = false;
 
 btn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+  if (document.body.classList.contains('light-mode')) {
+    document.body.classList.remove('light-mode');
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.body.classList.add('light-mode');
+    document.body.classList.remove('dark-mode');
+    localStorage.setItem('theme', 'light');
+  }
 });
 
-if (localStorage.getItem('theme') === 'dark') {
+const saved = localStorage.getItem('theme');
+if (saved === 'light') {
+  document.body.classList.add('light-mode');
+} else if (saved === 'dark') {
   document.body.classList.add('dark-mode');
 }
