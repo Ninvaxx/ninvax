@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Blog & News - Ninvax</title>
+    <link rel="stylesheet" href="/styles/core.css">
+    <script src="/scripts/theme-toggle.js" defer></script>
+    <!-- extra head scripts per page -->
+  </head>
+  <body class="grayscale-hover">
+    <div id="nav"></div><script src="/scripts/load-nav.js"></script>
+
+    <main class="container fade-slide-up">
+      <!-- page‑specific content -->
+      <h1 class="glitch" data-text="Blog &amp; News">Blog &amp; News</h1>
+
+      <section id="categories">
+        <h2>Categories</h2>
+        <ul>
+          <li>Cannabis policy &amp; regulations</li>
+          <li>Innovation &amp; technology updates</li>
+          <li>Community stories &amp; event recaps</li>
+        </ul>
+      </section>
+
+      <section id="pipeline">
+        <h2>Publishing Pipeline</h2>
+        <p>
+          Articles are drafted in Markdown, reviewed on GitHub, and deployed live via
+          Vercel or Netlify. Notion automations, powered by Codex, keep content flowing
+          regularly so members stay informed.
+        </p>
+      </section>
+
+      <section id="posts">
+        <h2>Latest Posts</h2>
+        <div id="blog-posts" class="placeholder">
+          <!-- Notion-powered posts will render here -->
+        </div>
+      </section>
+    </main>
+
+    <div id="footer"></div><script src="/scripts/load-footer.js"></script>
+    <!-- page‑specific scripts -->
+    <script src="/scripts/scroll-animate.js"></script>
+    <script type="module" src="/scripts/grayscale-hover.js"></script>
+  </body>
+</html>
