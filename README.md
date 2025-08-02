@@ -7,17 +7,14 @@ This repository contains the static files for the Ninvax website. The project is
 ```
 public/           Static assets such as images
 components/       Reusable HTML snippets
+pages/            HTML page files
 styles/           Site-wide CSS
 scripts/          JavaScript modules
 data/             Static JSON data
-index.html        Home page
-timeline.html     Personal timeline
-resume.html       Resume
-about.html        About page
 ```
 
-Clone the repository and open `index.html` in your browser to view the site.
+Clone the repository and open `pages/index.html` in your browser to view the site.
 
 ## Legal
 
-All website content is © 2025 Ninvax and is provided for personal viewing only. See [Terms of Use](terms.html) for details.
+All website content is © 2025 Ninvax and is provided for personal viewing only. See [Terms of Use](pages/terms.html) for details.

@@ -8,16 +8,12 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
   </head>
   <body>
     <div class="intro-banner">Ninvax 🪐 Reality Hackers Unite</div>
     <div id="nav"></div>
-    <script>
-fetch('/components/nav.html')
-  .then(res => res.text())
-  .then(html => document.getElementById('nav').innerHTML = html);
-    </script>
+    <script src="/scripts/load-nav.js"></script>
     <main>
       <section class="container hero-section">
         <h1>Ninvax Empire</h1>
@@ -233,15 +229,11 @@ fetch('/components/nav.html')
           }
       };
     </script>
-    <script src="scripts/render-products.js"></script>
-    <script type="module" src="scripts/theme-toggle.js"></script>
-    <script type="module" src="scripts/grayscale-hover.js"></script>
+    <script src="/scripts/render-products.js"></script>
+    <script src="/scripts/theme-toggle.js"></script>
+    <script type="module" src="/scripts/grayscale-hover.js"></script>
     <div id="footer"></div>
-    <script>
-fetch('/components/footer.html')
-  .then(res => res.text())
-  .then(html => document.getElementById('footer').innerHTML = html);
-    </script>
+    <script src="/scripts/load-footer.js"></script>
     <div id="toast" class="toast"></div>
   </body>
 </html>

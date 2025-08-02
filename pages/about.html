@@ -8,17 +8,13 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   </head>
   <body>
     <div id="nav"></div>
-    <script>
-fetch('/components/nav.html')
-  .then(res => res.text())
-  .then(html => document.getElementById('nav').innerHTML = html);
-    </script>
+    <script src="/scripts/load-nav.js"></script>
     <div class="container fade-slide-up">
       <h1 class="glitch">About Ninvax</h1>
       <p class="about-text">
@@ -26,15 +22,11 @@ fetch('/components/nav.html')
         hacking reality from Saturn's orbit to the cosmos 🪐.
         We craft glitchy tools that help outsiders bend the rules.
       </p>
-      <div class="saturn-ring-animation" style="display: none"></div>
+      <div class="saturn-ring-animation hidden"></div>
     </div>
     <div id="footer"></div>
-    <script>
-fetch('/components/footer.html')
-  .then(res => res.text())
-  .then(html => document.getElementById('footer').innerHTML = html);
-    </script>
-    <script type="module" src="scripts/theme-toggle.js"></script>
-    <script type="module" src="scripts/grayscale-hover.js"></script>
+    <script src="/scripts/load-footer.js"></script>
+    <script src="/scripts/theme-toggle.js"></script>
+    <script type="module" src="/scripts/grayscale-hover.js"></script>
   </body>
 </html>

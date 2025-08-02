@@ -4,10 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NINVAX // Timeline</title>
-  <link rel="stylesheet" href="styles/timeline.css" />
-  <script src="scripts/terminal.js" defer></script>
+  <link rel="stylesheet" href="/styles/timeline.css" />
+  <script src="/scripts/terminal.js" defer></script>
 </head>
 <body>
+
+  <div id="nav"></div>
+  <script src="/scripts/load-nav.js"></script>
 
   <div id="boot-screen">
     <h1 class="typing">[booting system… NINVAX kernel v0.0.2000]</h1>
@@ -59,9 +62,9 @@
 
   </main>
 
-  <footer>
-    <p><a href="/">Back to Core</a> • <a href="https://x.com/YOURHANDLE">X Thread</a></p>
-  </footer>
-
+  <div id="footer"></div>
+  <script src="/scripts/load-footer.js"></script>
+  <script src="/scripts/theme-toggle.js"></script>
+  <script type="module" src="/scripts/grayscale-hover.js"></script>
 </body>
 </html>

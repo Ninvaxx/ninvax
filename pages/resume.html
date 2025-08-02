@@ -8,22 +8,18 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
   </head>
   <body>
       <div id="nav"></div>
-      <script>
-fetch('/components/nav.html')
-  .then(res => res.text())
-  .then(html => document.getElementById('nav').innerHTML = html);
-      </script>
+      <script src="/scripts/load-nav.js"></script>
     <div class="container">
       <h1 class="glitch">Resume</h1>
       <nav id="toc" class="strain-list">
         <a href="#experience">Experience</a> |
         <a href="#education">Education</a>
       </nav>
-          <span class="image main"><img src="public/images/pic09.jpg" alt="" /></span>
+          <span class="image main"><img src="/public/images/pic09.jpg" alt="" /></span>
           <section>
             <h2>AI Prompt Engineer / Cognitive Systems Designer</h2>
             <p>
@@ -316,7 +312,7 @@ fetch('/components/nav.html')
     </div>
 
       <!-- Footer -->
-      <footer id="footer">
+      <footer id="resume-footer">
         <div class="inner">
           <section>
             <h2>Get in touch</h2>
@@ -407,14 +403,10 @@ fetch('/components/nav.html')
         </div>
       </footer>
         <div id="footer"></div>
-        <script>
-fetch('/components/footer.html')
-  .then(res => res.text())
-  .then(html => document.getElementById('footer').innerHTML = html);
-        </script>
+        <script src="/scripts/load-footer.js"></script>
 
       <!-- Scripts -->
-      <script type="module" src="scripts/theme-toggle.js"></script>
-      <script type="module" src="scripts/grayscale-hover.js"></script>
+      <script src="/scripts/theme-toggle.js"></script>
+      <script type="module" src="/scripts/grayscale-hover.js"></script>
 </body>
 </html>
