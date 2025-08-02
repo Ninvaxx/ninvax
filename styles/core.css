@@ -1,0 +1,110 @@
+/* ===================== THEME TOKENS ===================== */
+:root {
+  /* colours */
+  --clr-bg:         #0a0a0a;
+  --clr-surface:    #111;
+  --clr-primary:    #ff00ff;
+  --clr-primary-2:  #ff007a;
+  --clr-accent:     #00ffff;
+  --clr-text:       #e0e0e0;
+
+  /* layout */
+  --page-max: 800px;
+  --radius:   8px;
+
+  /* timing */
+  --t-fast:   .2s;
+  --t-med:    .4s;
+}
+
+/* ===================== GLOBAL RESET ===================== */
+*, *::before, *::after { box-sizing: border-box; }
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Share Tech Mono',monospace;
+  background:var(--clr-bg);
+  color:var(--clr-text);
+  line-height:1.6;
+}
+
+/* ===================== TYPOGRAPHY ===================== */
+h1,h2,h3,h4{margin:0 0 .4em;font-weight:700}
+h1{font-size:clamp(2rem,4vw,3rem)}
+h2{font-size:clamp(1.5rem,3vw,2.25rem)}
+p{margin:.5em 0}
+
+/* glitch headings reused from timeline */
+.glitch{
+  position:relative;
+  animation:glitch 1s linear infinite, neon-flicker 4s linear infinite;
+}
+@keyframes glitch{0%,100%{transform:none}20%{transform:skew(-.5deg,-.5deg)}40%{transform:skew(.5deg,.5deg)}60%{transform:skew(-.5deg,.5deg)}80%{transform:skew(.5deg,-.5deg)}}
+@keyframes neon-flicker{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* ===================== LAYOUT HELPERS ===================== */
+.container{max-width:var(--page-max);margin:3rem auto;padding:0 1.25rem}
+.hero-section{padding:4rem 1.25rem;text-align:center}
+.fade-slide-up{animation:fade-slide-up var(--t-med)ease both}
+@keyframes fade-slide-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===================== NAVIGATION (borrowed from Home) ===================== */
+nav{
+  display:flex;
+  justify-content:center;
+  gap:1.5rem;
+  position:sticky;top:0;
+  background:var(--clr-bg);padding:1rem 0;z-index:1000
+}
+nav a{
+  color:var(--clr-primary);
+  text-decoration:none;
+  transition:text-shadow var(--t-fast);
+  font-size:1.1rem;
+}
+nav a:hover,
+nav a:focus{
+  color:var(--clr-primary-2);
+  text-shadow:0 0 5px var(--clr-primary),0 0 10px var(--clr-primary-2);
+  animation:glitch-hover .15s alternate 2;
+}
+@keyframes glitch-hover{0%,100%{transform:translateX(0)}50%{transform:translateX(-2px)}}
+
+/* ===================== CARDS & GRIDS ===================== */
+.strain-list{
+  display:grid;gap:1.25rem;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+}
+.product-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--clr-primary);
+  padding:1rem;border-radius:var(--radius);
+}
+
+/* ===================== TIMELINE PATTERN ===================== */
+.timeline{
+  padding:2rem 1rem;
+  margin:auto;max-width:var(--page-max);
+}
+.timeline-item{
+  border-left:3px solid var(--clr-primary);
+  padding-left:1.5rem;margin-bottom:2.5rem;cursor:pointer;
+  position:relative;
+}
+.timeline-item::before{
+  content:'';
+  position:absolute;left:-12px;top:0;
+  width:20px;height:20px;
+  background:var(--clr-primary);border-radius:50%;
+  transition:transform var(--t-fast);
+}
+.timeline-item:hover::before{transform:scale(1.25)}
+.timeline-item:hover p::after{
+  content:attr(data-quote);
+  display:block;margin-top:.5rem;
+  color:var(--clr-accent);font-style:italic;font-size:.9rem
+}
+.year{color:var(--clr-accent);font-weight:700}
+
+/* ===================== UTILITY ===================== */
+.hidden{display:none}
+.toaster{/*…existing toast rules…*/}
