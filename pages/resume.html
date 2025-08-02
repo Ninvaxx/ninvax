@@ -1,22 +1,28 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resume - Ninvax</title>
-    <link rel="stylesheet" href="/styles/core.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title><!-- Page Title -->Resume - Ninvax</title>
+    <link rel="stylesheet" href="/styles/core.css">
+    <script src="/scripts/theme-toggle.js" defer></script>
+    <!-- extra head scripts per page -->
   </head>
-  <body>
-      <div id="nav"></div>
-      <script src="/scripts/load-nav.js"></script>
-    <div class="container">
+  <body class="grayscale-hover">
+    <div id="nav"></div><script src="/scripts/load-nav.js"></script>
+
+    <!-- OPTIONAL hero banner -->
+    <!-- <section class="intro-banner">Ninvax 🪐 Reality Hackers Unite</section> -->
+
+    <main class="container fade-slide-up">
+      <!-- page‑specific content -->
       <h1 class="glitch">Resume</h1>
       <nav id="toc" class="strain-list">
         <a href="#experience">Experience</a> |
         <a href="#education">Education</a>
       </nav>
-          <span class="image main"><img src="/public/images/pic09.jpg" alt="" /></span>
-          <section>
+      <span class="image main"><img src="/public/images/pic09.jpg" alt="" /></span>
+      <section>
             <h2>AI Prompt Engineer / Cognitive Systems Designer</h2>
             <p>
               <strong>Role:</strong> AI Prompt Engineer &amp; Cognitive Systems
@@ -305,7 +311,6 @@
               </li>
             </ul>
           </section>
-    </div>
 
       <!-- Footer -->
       <footer id="resume-footer">
@@ -398,11 +403,10 @@
           </ul>
         </div>
       </footer>
-        <div id="footer"></div>
-        <script src="/scripts/load-footer.js"></script>
+    </main>
 
-      <!-- Scripts -->
-      <script src="/scripts/theme-toggle.js"></script>
-      <script type="module" src="/scripts/grayscale-hover.js"></script>
-</body>
+    <div id="footer"></div><script src="/scripts/load-footer.js"></script>
+    <!-- page‑specific scripts -->
+    <script type="module" src="/scripts/grayscale-hover.js"></script>
+  </body>
 </html>

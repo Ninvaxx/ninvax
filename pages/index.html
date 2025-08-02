@@ -1,16 +1,22 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ninvax</title>
-    <link rel="stylesheet" href="/styles/core.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title><!-- Page Title -->Ninvax</title>
+    <link rel="stylesheet" href="/styles/core.css">
+    <script src="/scripts/theme-toggle.js" defer></script>
+    <!-- extra head scripts per page -->
   </head>
-  <body>
-    <div class="intro-banner">Ninvax 🪐 Reality Hackers Unite</div>
-    <div id="nav"></div>
-    <script src="/scripts/load-nav.js"></script>
-    <main>
+  <body class="grayscale-hover">
+    <div id="nav"></div><script src="/scripts/load-nav.js"></script>
+
+    <!-- OPTIONAL hero banner -->
+    <!-- <section class="intro-banner">Ninvax 🪐 Reality Hackers Unite</section> -->
+    <section class="intro-banner">Ninvax 🪐 Reality Hackers Unite</section>
+
+    <main class="container fade-slide-up">
+      <!-- page‑specific content -->
       <section class="container hero-section">
         <h1>Ninvax Empire</h1>
         <p>The glitchy hub for reality hackers building a trillion‑dollar empire.</p>
@@ -39,8 +45,11 @@
         <input type="text" id="store" placeholder="Store name" required />
         <button type="submit" class="btn">Add Strain</button>
       </form>
+      <div id="toast" class="toast"></div>
     </main>
 
+    <div id="footer"></div><script src="/scripts/load-footer.js"></script>
+    <!-- page‑specific scripts -->
     <script>
       function debounce(func, delay) {
           let timeoutId;
@@ -133,7 +142,6 @@
           renderStrains(filtered);
       }
 
-
       document.getElementById('price').addEventListener('input', function() {
           this.value = this.value.match(/^\d*\.?\d*$/) ? this.value : this.value.slice(0, -1);
       });
@@ -156,7 +164,6 @@
           toast.classList.add('show');
           setTimeout(() => toast.classList.remove('show'), 3000);
       }
-
 
       document.getElementById('storeForm').addEventListener('submit', async function(e) {
           e.preventDefault();
@@ -183,7 +190,6 @@
               return;
           }
           errorEl.style.display = 'none';
-
 
           const res = await fetch('/strains', {
               method: 'POST',
@@ -232,10 +238,6 @@
       };
     </script>
     <script src="/scripts/render-products.js"></script>
-    <script src="/scripts/theme-toggle.js"></script>
     <script type="module" src="/scripts/grayscale-hover.js"></script>
-    <div id="footer"></div>
-    <script src="/scripts/load-footer.js"></script>
-    <div id="toast" class="toast"></div>
   </body>
 </html>
