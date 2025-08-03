@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate:metadata": "node scripts/generateMetadata.js",
-    "generate:pages": "node scripts/generatePage.js"
+    "generate:pages": "node scripts/generatePage.js",
+    "post:twitter": "node scripts/postRandomMedia.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
   "dependencies": {
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
-    "slugify": "^1.6.6"
+    "slugify": "^1.6.6",
+    "twitter-api-v2": "^1.24.0"
   }
 }
