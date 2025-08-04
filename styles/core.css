@@ -140,7 +140,7 @@ p{margin:.5em 0}
 @keyframes glitch-hover{0%,100%{transform:translateX(0)}50%{transform:translateX(-2px)}}
 
 /* ===================== CARDS & GRIDS ===================== */
-.strain-list{
+.item-list{
   display:grid;gap:1.25rem;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 }
